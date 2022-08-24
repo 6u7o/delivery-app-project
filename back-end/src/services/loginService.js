@@ -1,5 +1,5 @@
-import md5 from 'md5';
 require('express-async-errors');
+const md5 = require('md5');
 const { Users } = require('../database/models');
 
 const login = async (email, password) => {
