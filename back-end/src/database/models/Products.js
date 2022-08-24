@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     name: {
-      type: DataTypes.VARCHAR(100),
+      type: DataTypes.STRING(100),
       unique: true,
       allowNull: false
     },
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     urlImage: {
-      type: DataTypes.VARCHAR(200),
+      type: DataTypes.STRING(200),
       allowNull: false
     },
   }, {

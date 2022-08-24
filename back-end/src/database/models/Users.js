@@ -1,5 +1,5 @@
 'use strict';
-import md5 from 'md5';
+const md5 =  require('md5');
 
 const {
   Model
@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Users.hasMany(models.Sales, { foreignKey: 'user_id', as: 'sales' });
-      Users.hasMany(models.Sales, { foreignKey: 'seller_id', as: 'sales' });
+      Users.hasMany(models.Sales, { foreignKey: 'user_id'/* , as: 'sales' */ });
+      Users.hasMany(models.Sales, { foreignKey: 'seller_id'/* , as: 'sales' */ });
     }
   }
   Users.init({
