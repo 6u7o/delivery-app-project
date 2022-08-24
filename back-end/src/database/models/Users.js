@@ -1,4 +1,6 @@
 'use strict';
+import md5 from 'md5';
+
 const {
   Model
 } = require('sequelize');
@@ -45,5 +47,12 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     tableName: 'users'
   });
+
+  Users.addHook('beforeSave', async (user) => {
+    if (user.password) {
+      user.password = md5(user.password);
+    }
+  });
+
   return Users;
 };
