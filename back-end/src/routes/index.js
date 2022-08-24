@@ -1,9 +1,9 @@
-import express from 'express';
+const express = require('express');
 
-// import routerDeExemplo from './routeDeExemplo'
+const loginRouter = require('./loginRouter');
 
 const router = express.Router({ mergeParams: true });
 
-// router.use('/rotaDoExemplo', routerDeExemplo)
+router.use('/login', loginRouter)
 
-export default router;
+module.exports = router;
