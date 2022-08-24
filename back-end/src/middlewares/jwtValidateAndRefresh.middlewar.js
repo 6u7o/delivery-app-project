@@ -18,11 +18,11 @@ module.exports = async (req, res, next) => {
     const tokenPayload = jwt.verifyAndReadToken(token);
 
     // verifica a existência do user que está fazendo a requisição;
-    const user = await User.findByPk(tokenPayload.codCliente, {
+    const user = await User.findByPk(tokenPayload.id, {
       attributes: { exclude: ['password'] },
     });
 
-    if (!user) {
+    if (!user) { // faria mais sentido uma verificação vai completa dos dados que chegaram no token e os dados do banco de dados, mas acho que isso seja suficiente mesmo 
       return res.status(401).json({ message: 'Invalid user data' });
     }
 
