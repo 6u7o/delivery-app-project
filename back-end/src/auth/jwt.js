@@ -9,10 +9,9 @@ const jwtConfig = {
 
 const jwtSecret = process.env.JWT_SECRET || 'Swordfish';
 
-export const generateToken = (payload, config = jwtConfig) => {
-  const { codCliente, admin } = payload;
-  return jwt.sign({ codCliente, admin }, jwtSecret, config);
-};
+export const generateToken = (payload, config = jwtConfig) => (
+  jwt.sign(payload, jwtSecret, config)
+);
 
 export const verifyAndReadToken = (token) => (
   jwt.verify(token, jwtSecret)
