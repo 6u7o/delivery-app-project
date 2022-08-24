@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { changeEmail } from '../Redux/slicers/user.slicer';
@@ -8,6 +9,7 @@ function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [hasAnError, setError] = useState('');
 
   const isButtonDisabled = () => {
     const PASSWORD_LENGTH = 6;
@@ -21,6 +23,9 @@ function Login() {
 
   const onClickButton = (event) => {
     event.preventDefault();
+    
+    const loginData = axios.post('./localhost:3001', { email, password });
+    if (loginData.error) 
     dispatch(changeEmail(email));
   };
 
@@ -45,6 +50,10 @@ function Login() {
             data-testid="common_login__input-password"
           />
         </label>
+
+          <span class={ hasAnError }>
+            email inválido
+          </span>
         <button
           type="submit"
           aria-label="login-button"
@@ -71,3 +80,5 @@ function Login() {
 }
 
 export default Login;
+
+// Hello World
