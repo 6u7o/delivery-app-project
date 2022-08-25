@@ -1,9 +1,19 @@
 const express = require('express');
-const appRouter = require('../routes');
+// const cors = require("cors");
 require('express-async-errors');
+const appRouter = require('../routes');
 const errorMiddleware = require('../middlewares/errors/errorMiddleware.middlewares');
-
 const app = express();
+
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  // res.header('Access-Control-Allow-Methods', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+}
+
+// app.use(cors()); // caso vá utilizar o cors, é necessário reinstalar esse
+app.use(allowCrossDomain);
 app.use(express.json());
 app.use(appRouter);
 
