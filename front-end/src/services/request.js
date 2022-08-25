@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: `http://localhost:${process.env.REACT_APP_HOSTNAME || '3001'}`,
+  baseURL: `http://localhost:${process.env.REACT_APP_BACKEND_PORT || '3001'}`,
 });
 
 export const requestLogin = async (endpoint, body) => {
