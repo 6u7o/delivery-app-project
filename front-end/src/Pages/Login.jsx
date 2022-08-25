@@ -34,18 +34,16 @@ function Login() {
     event.preventDefault();
     try {
       const loginData = await api.post('/login', { email, password });
-      if (loginData.error) return setError(true);
-      console.log(loginData);
       dispatch(changeEmail(email));
       localStorage.setItem('role', loginData.data.role);
       localStorage.setItem('token', loginData.data.token);
       localStorage.setItem('userEmail', loginData.data.email);
       localStorage.setItem('userName', loginData.data.name);
-      // *** tratar o erro de forma diferente. Quando os requests tem retorno com status de erro o programa está crashando. Buscar uma opção do axios ou react que evite isso (se existir);
-      // *** Apesar do problema acima, os retornos da api não estão segundo o combinado ainda e isso deve ser refatorado o quanto antes;
-      navigate('/register');
+      if (loginData.data.role === 'customer') navigate('/register');
+      if (loginData.data.role === 'seller') navigate('/seller');
+      if (loginData.data.role === 'administrator') navigate('/admin');
     } catch (err) {
-      console.log(err.message);
+      setError(true);
     }
   };
 
@@ -72,7 +70,7 @@ function Login() {
         </label>
 
         {hasAnError && (
-          <span className={ hasAnError } style>
+          <span>
             email ou senha inválidos
           </span>)}
         <button
