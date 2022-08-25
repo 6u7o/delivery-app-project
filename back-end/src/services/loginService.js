@@ -14,7 +14,10 @@ const login = async (email, password) => {
   if (!userI) return false;
 
   const token = generateToken(userI);
-  return token;
+  return obj = {
+    token,
+    ...userI
+  };
 };
 
 module.exports = {

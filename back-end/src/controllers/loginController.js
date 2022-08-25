@@ -6,9 +6,8 @@ const login = async (req, res) => {
   const response = await loginService.login(email, password);
   if (!response) {
     throw Error('Not found');
-    // return res.status(404).json({ message: 'Not found' });
   } 
-  return res.status(200).json({ token: response });
+  return res.status(200).json(response);
 };
 
 module.exports = {
