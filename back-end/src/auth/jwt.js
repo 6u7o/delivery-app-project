@@ -1,4 +1,4 @@
-import * as jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
 
@@ -9,15 +9,15 @@ const jwtConfig = {
 
 const jwtSecret = process.env.JWT_SECRET || 'Swordfish';
 
-export const generateToken = (payload, config = jwtConfig) => (
+const generateToken = (payload, config = jwtConfig) => (
   jwt.sign(payload, jwtSecret, config)
 );
 
-export const verifyAndReadToken = (token) => (
+const verifyAndReadToken = (token) => (
   jwt.verify(token, jwtSecret)
 );
 
-export default {
+module.exports = {
   generateToken,
   verifyAndReadToken,
 };

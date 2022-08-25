@@ -1,21 +1,20 @@
-require('express-async-errors');
 const md5 = require('md5');
 const { Users } = require('../database/models');
+const { generateToken } = require('../auth/jwt');
 
 const login = async (email, password) => {
-    const userI = await Users.findOne({
-      attributes: ['id', 'email'],
-      where: { email, password },
-    });
-    if (!userI) return false;
+  const passwordHash = md5(password);
 
-    const passwordMd5 = md5(userI.dataValues.password);
-    if (userI.dataValues.password !== passwordMd5) {
-      return false;
-    }
-    
-    const token = generateJWTToken(userI.dataValues);
-    return token;
+  const userI = await Users.findOne({
+    attributes: ['id', 'email', 'name', 'role'],
+    where: { email, password: passwordHash },
+    raw: true,
+  });
+
+  if (!userI) return false;
+
+  const token = generateToken(userI);
+  return token;
 };
 
 module.exports = {
