@@ -29,7 +29,7 @@ function Login() {
       const loginData = await api.post('/login', { email, password });
       if (loginData.error) return setError(true);
       dispatch(changeEmail(email));
-      // *** salvar o token recebido;
+      // *** salvar o token recebido; // loginData.data.token
       // *** tratar o erro de forma diferente. Quando os requests tem retorno com status de erro o programa está crashando. Buscar uma opção do axios ou react que evite isso (se existir);
       // *** Apesar do problema acima, os retornos da api não estão segundo o combinado ainda e isso deve ser refatorado o quanto antes;
       navigate('/register');
