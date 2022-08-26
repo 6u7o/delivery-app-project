@@ -16,7 +16,7 @@ const login = async (email, password) => {
   const token = generateToken(userI);
   return {
     token,
-    ...userI
+    ...userI,
   };
 };
 
