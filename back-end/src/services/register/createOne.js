@@ -17,11 +17,11 @@ const createOne = async (userData) => {
 
   if (!userDbData) return false;
 
-  const { email, name, role } = userDbData;
+  const { email, name, role, id } = userDbData;
 
   const token = generateToken(userDbData);
 
-  return { email, name, role, token };
+  return { id, email, name, role, token };
 };
 
 module.exports = createOne;
