@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../services/request';
 
 function Register() {
@@ -6,6 +7,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hasAnError, setError] = useState(false);
+  const navigate = useNavigate();
 
   const isButtonDisabled = () => {
     const PASSWORD_LENGTH = 6;
@@ -23,7 +25,10 @@ function Register() {
   const registerOnClick = async (event) => {
     event.preventDefault();
     try {
-      await api.post('/register', { name, email, password });
+      const registerData = await api.post('/register', { name, email, password });
+      if (registerData) {
+        navigate('/customer/products');
+      }
     } catch (err) {
       setError(true);
       // console.log(err);
