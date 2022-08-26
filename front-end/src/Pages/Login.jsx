@@ -70,7 +70,7 @@ function Login() {
         </label>
 
         {hasAnError && (
-          <span>
+          <span data-testid="common_login__element-invalid-email">
             email ou senha inválidos
           </span>)}
         <button
