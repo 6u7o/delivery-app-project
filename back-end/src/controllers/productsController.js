@@ -1,4 +1,3 @@
-// const Joi = require('joi');
 const productsService = require('../services/productsService');
 
 const getAllProducts = async (req, res) => {
