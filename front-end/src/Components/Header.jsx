@@ -1,35 +1,35 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from './Header.button';
 
-function Header() {
+function Header({ array }) {
+  const navigate = useNavigate();
+
   return (
     <div>
-      <button
-        type="button"
-        aria-label="header-button1"
-        name="header-button1"
-        // onClick={}
-      >
-        LALALAND
-      </button>
-      <button
-        type="button"
-        aria-label="header-button2"
-        name="header-button2"
-        // onClick={}
-      >
-        ARTURITO
-      </button>
       <div>
+        {
+          array.map((button) => (
+            <Button
+              key={ button.label }
+              label={ button.label }
+              handleClick={ () => navigate(button.route) }
+              aria={ button.aria }
+              name={ button.name }
+            />
+          ))
+        }
         <h3> PESSOA USUÁRIA </h3>
+        <button
+          type="button"
+          aria-label="logout-button"
+          onClick={ () => navigate('/login') }
+          data-testid="customer_products__element-navbar-link-logout"
+          name="logout-button"
+        >
+          SAIR
+        </button>
       </div>
-      <button
-        type="button"
-        aria-label="checkout-button"
-        name="checkout-button"
-        // onClick={}
-      >
-        SAIR
-      </button>
     </div>
   );
 }
