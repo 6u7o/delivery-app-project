@@ -7,7 +7,7 @@ const createSale = async (req, res) => {
   //   throw Error('Not found');
   // } 
   // return res.status(201).json({data: response});
-  return res.status(201).json({ data: response });
+  return res.status(201).json({ data: response, token: req.NewToken });
 };
 
 module.exports = {
