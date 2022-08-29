@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from './Header.button';
+// import Button from './Header.button';
 
 function Header({ array }) {
   const navigate = useNavigate();
@@ -10,13 +10,15 @@ function Header({ array }) {
       <div>
         {
           array.map((button) => (
-            <Button
+            <button
               key={ button.label }
-              label={ button.label }
-              handleClick={ () => navigate(button.route) }
-              aria={ button.aria }
+              type="button"
+              onClick={ () => navigate(button.route) }
+              aria-label={ button.aria }
               name={ button.name }
-            />
+            >
+              { button.label }
+            </button>
           ))
         }
         <h3> PESSOA USUÁRIA </h3>
