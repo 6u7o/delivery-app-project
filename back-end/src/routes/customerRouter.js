@@ -5,6 +5,7 @@ const { createSale } = require('../controllers/checkoutController');
 const customerRouter = express.Router();
 
 customerRouter.get('/products', getAllProducts);
-customerRouter.get('/checkout', createSale);
+customerRouter.post('/checkout', createSale);
+// customerRouter.post('/orders/:id', createSale);
 
 module.exports = customerRouter;
