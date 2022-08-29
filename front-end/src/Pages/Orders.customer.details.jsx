@@ -1,7 +1,26 @@
 import React from 'react';
 import Header from '../Components/Header';
+import DetailsTable from '../Components/TableDetails';
+// import api from '../services/request';
 
 function CustomerOrdersDetails() {
+  // const arrayData = await api.get('/customer/orders/:id');
+  const arrayDataMock = [
+    {
+      id: 1,
+      product: 'Beer',
+      quantity: 12,
+      unitPrice: 'R$ 3,50',
+      totalPrice: 'R$ 42,00',
+    },
+    {
+      id: 2,
+      product: 'Soda',
+      quantity: 6,
+      unitPrice: 'R$ 3,50',
+      totalPrice: 'R$ 21,00',
+    },
+  ];
   return (
     <div>
       <Header
@@ -19,6 +38,33 @@ function CustomerOrdersDetails() {
         }] }
       />
       <h1> CUSTOMER ORDERS DETAILS </h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor unitário</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            arrayDataMock?.map((item) => (
+              <tr key={ item.id }>
+                <DetailsTable
+                  id={ item.id }
+                  product={ item.product }
+                  quantity={ item.quantity }
+                  unitPrice={ item.unitPrice }
+                  totalPrice={ item.totalPrice }
+                />
+              </tr>
+
+            ))
+          }
+        </tbody>
+      </table>
     </div>
   );
 }
