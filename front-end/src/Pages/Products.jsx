@@ -1,8 +1,11 @@
 import React from 'react';
 import Header from '../Components/Header';
-// import CardProduct from '../Components/ProductCard';
+import api from '../services/request';
+import CardProduct from '../Components/ProductCard';
 
 function Products() {
+  const getProductsData = api.get('/customer/products');
+
   return (
     <div>
       <Header
@@ -20,7 +23,14 @@ function Products() {
         }] }
       />
       <h1> PRODUCTS </h1>
-      {/* <CardProduct /> */}
+      { getProductsData?.map((product) => (
+        <CardProduct
+          key={ product.name }
+          price={ product.price }
+          image={ product.image }
+          name={ product.name }
+        />
+      )) }
     </div>
   );
 }
