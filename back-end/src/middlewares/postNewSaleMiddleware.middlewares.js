@@ -1,7 +1,7 @@
 const postNewSaleBody = require('../joi/postNewSaleBody.joi');
 
 const postNewSaleMiddleware = (req, res, next) => {
-  console.log('middleware' )
+  console.log('middleware');
   const { error } = postNewSaleBody.validate(req.body);
   console.log('middleware ERROR', error);
     if (error) {

@@ -12,7 +12,7 @@ const newUserDataSchema = Joi.object({
     quantity: Joi.number().min(1).required(),
     unityValue: Joi.number(),
     name: Joi.string(),
-  }))
+  })),
 }).messages({
   'any.required': '{{#label}} is required///400',
   'number.min': '{{#label}} length must be at least 1 characters long///422', 
