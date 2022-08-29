@@ -5,7 +5,7 @@ const getAllProducts = async (req, res) => {
   if (!response) {
     throw Error('Not found');
   } 
-  return res.status(200).json({data: response});
+  return res.status(200).json({ data: response });
 };
 
 module.exports = {

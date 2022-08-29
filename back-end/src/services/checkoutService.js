@@ -7,23 +7,22 @@ const createSale = async (saleInfo) => {
     const newSale = await Sales.create(saleInfo, {
       raw: true,
       transaction,
-      fields: ['sellerId', 'totalPrice', 'deliveryAddress', 'deliveryNumber', 'userId']
+      fields: ['sellerId', 'totalPrice', 'deliveryAddress', 'deliveryNumber', 'userId'],
     });
     console.log('Chegou aqui', newSale.dataValues);
 
-    const formatedProducts = saleInfo.products.map(({ productId, quantity }) => {
-      return { saleId: newSale.id, productId, quantity }
-    })
+    const formatedProducts = saleInfo.products.map(({ productId, quantity }) => (
+      { saleId: newSale.id, productId, quantity }
+    ));
 
     await SalesProducts.bulkCreate(formatedProducts, { transaction });
     
     await transaction.commit();
     return newSale.dataValues;
   } catch (error) {
-    console.log('catch: ***', error.message)
+    console.log('catch: ***', error.message);
     await transaction.rollback();
   }
-  
 };
 
 module.exports = {
