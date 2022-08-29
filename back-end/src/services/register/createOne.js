@@ -19,7 +19,7 @@ const createOne = async (userData) => {
 
   const { email, name, role, id } = userDbData;
 
-  const token = generateToken(userDbData);
+  const token = await generateToken(userDbData);
 
   return { id, email, name, role, token };
 };
