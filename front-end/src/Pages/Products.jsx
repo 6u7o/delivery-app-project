@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../Components/Header';
+// import CardProduct from '../Components/ProductCard';
 
 function Products() {
   return (
@@ -19,6 +20,7 @@ function Products() {
         }] }
       />
       <h1> PRODUCTS </h1>
+      {/* <CardProduct /> */}
     </div>
   );
 }
