@@ -1,7 +1,7 @@
 const jwt = require('../auth/jwt');
 require('dotenv').config();
 
-const { User } = require('../database/models'); // Essa chamada da módel não deveria ser feita diretamente aqui. Aqui deveria ser chamado um service
+const { Users } = require('../database/models'); // Essa chamada da módel não deveria ser feita diretamente aqui. Aqui deveria ser chamado um service
 
 module.exports = async (req, res, next) => {
   const { authorization: token } = req.headers;
@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
     const tokenPayload = jwt.verifyAndReadToken(token);
 
     // verifica a existência do user que está fazendo a requisição;
-    const user = await User.findByPk(tokenPayload.id, {
+    const user = await Users.findByPk(tokenPayload.id, {
       attributes: { exclude: ['password'] },
     });
 
