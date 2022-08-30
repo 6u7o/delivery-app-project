@@ -1,4 +1,4 @@
-const { Sales } = require('../database/models');
+const { Sales, Products } = require('../database/models');
 
 const getAllOrdersByUserId = async (userId) => {
   const arrUserOrders = await Sales.findAll({
@@ -13,6 +13,24 @@ const getAllOrdersByUserId = async (userId) => {
   return arrUserOrders;
 };
 
+const getOrderProducts = async (userId, orderId) => {
+  const arrUserOrders = await Sales.findOne({
+    where: { id: orderId, userId },
+    // raw: true,
+    include: [
+      {
+        model: Products,
+        as: 'products',
+        through: { attributes: [] },
+      },
+    ]
+  });
+  if (!arrUserOrders) return false;
+
+  return arrUserOrders;
+};
+
 module.exports = {
   getAllOrdersByUserId,
+  getOrderProducts,
 };
