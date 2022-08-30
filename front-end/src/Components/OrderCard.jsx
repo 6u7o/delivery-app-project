@@ -6,14 +6,10 @@ function CardOrder(
     status,
     date,
     totalPrice,
-    dtTestIdCustOrder,
-    dtTestIdSellOrder,
-    dtTestIdCustOrderStats,
-    dtTestIdSellOrderStats,
-    dtTestIdCustOrderDate,
-    dtTestIdSellOrderDate,
-    dtTestIdCustOrderTPrice,
-    dtTestIdSellOrderTPrice,
+    dtTestIdOrder,
+    dtTestIdOrderStats,
+    dtTestIdOrderDate,
+    dtTestIdOrderTPrice,
     orderAdress,
     dtTestIdOrderAdress,
   },
@@ -22,7 +18,7 @@ function CardOrder(
     <div>
 
       <div
-        data-testid={ dtTestIdCustOrder || dtTestIdSellOrder }
+        data-testid={ dtTestIdOrder }
       >
         <h3>
           Pedido
@@ -31,19 +27,19 @@ function CardOrder(
       </div>
 
       <div
-        data-testid={ dtTestIdCustOrderStats || dtTestIdSellOrderStats }
+        data-testid={ dtTestIdOrderStats }
       >
         <h3>{ status }</h3>
       </div>
 
       <div>
         <h3
-          data-testid={ dtTestIdCustOrderDate || dtTestIdSellOrderDate }
+          data-testid={ dtTestIdOrderDate }
         >
           { date }
         </h3>
         <h3
-          data-testid={ dtTestIdCustOrderTPrice || dtTestIdSellOrderTPrice }
+          data-testid={ dtTestIdOrderTPrice }
         >
           { totalPrice }
         </h3>
@@ -64,14 +60,10 @@ CardOrder.propTypes = {
   status: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   totalPrice: PropTypes.number.isRequired,
-  dtTestIdCustOrder: PropTypes.string.isRequired,
-  dtTestIdSellOrder: PropTypes.string.isRequired,
-  dtTestIdCustOrderStats: PropTypes.string.isRequired,
-  dtTestIdSellOrderStats: PropTypes.string.isRequired,
-  dtTestIdCustOrderDate: PropTypes.string.isRequired,
-  dtTestIdSellOrderDate: PropTypes.string.isRequired,
-  dtTestIdCustOrderTPrice: PropTypes.string.isRequired,
-  dtTestIdSellOrderTPrice: PropTypes.string.isRequired,
+  dtTestIdOrder: PropTypes.string.isRequired,
+  dtTestIdOrderStats: PropTypes.string.isRequired,
+  dtTestIdOrderDate: PropTypes.string.isRequired,
+  dtTestIdOrderTPrice: PropTypes.string.isRequired,
   orderAdress: PropTypes.string.isRequired,
   dtTestIdOrderAdress: PropTypes.string.isRequired,
 };

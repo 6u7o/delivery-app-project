@@ -25,10 +25,10 @@ function SellerOrders() {
           date={ order.date }
           status={ order.status }
           totalPrice={ order.totalPrice }
-          dtTestIdSellOrder={ `seller_orders__element-order-id-${order.id}` }
-          dtTestIdSellOrderStats={ `seller_orders__element-delivery-status-${order.id}` }
-          dtTestIdSellOrderDate={ `seller_orders__element-order-date-${order.id}` }
-          dtTestIdSellOrderTPrice={ `seller_orders__element-card-price-${order.id}` }
+          dtTestIdOrder={ `seller_orders__element-order-id-${order.id}` }
+          dtTestIdOrderStats={ `seller_orders__element-delivery-status-${order.id}` }
+          dtTestIdOrderDate={ `seller_orders__element-order-date-${order.id}` }
+          dtTestIdOrderTPrice={ `seller_orders__element-card-price-${order.id}` }
           dtTestIdOrderAdress={ `seller_orders__element-card-address-${order.id}` }
           orderAdress={ order.adress }
         />

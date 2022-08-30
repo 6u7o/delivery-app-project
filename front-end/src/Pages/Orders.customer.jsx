@@ -33,10 +33,10 @@ function CustomerOrders() {
           date={ order.date }
           status={ order.status }
           totalPrice={ order.totalPrice }
-          dtTestIdCustOrder={ `customer_orders__element-order-id-${order.id}` }
-          dtTestIdCustOrderStats={ `customer_orders__element-delivery-status${order.id}` }
-          dtTestIdCustOrderDate={ `customer_orders__element-order-date-${order.id}` }
-          dtTestIdCustOrderTPrice={ `customer_orders__element-card-price-${order.id}` }
+          dtTestIdOrder={ `customer_orders__element-order-id-${order.id}` }
+          dtTestIdOrderStats={ `customer_orders__element-delivery-status${order.id}` }
+          dtTestIdOrderDate={ `customer_orders__element-order-date-${order.id}` }
+          dtTestIdOrderTPrice={ `customer_orders__element-card-price-${order.id}` }
         />
       ))}
     </div>
