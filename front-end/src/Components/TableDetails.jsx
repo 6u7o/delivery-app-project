@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function DetailsTable({ id, user, product, email, quantity, userRole,
   unitPrice, totalPrice, deleteUser, remove }) {
@@ -35,5 +36,18 @@ function DetailsTable({ id, user, product, email, quantity, userRole,
     </>
   );
 }
+
+DetailsTable.propTypes = {
+  id: PropTypes.number.isRequired,
+  user: PropTypes.string.isRequired,
+  product: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
+  userRole: PropTypes.string.isRequired,
+  unitPrice: PropTypes.number.isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  deleteUser: PropTypes.bool.isRequired,
+  remove: PropTypes.bool.isRequired,
+};
 
 export default DetailsTable;

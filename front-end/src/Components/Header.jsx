@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 // import Button from './Header.button';
 
@@ -35,5 +36,16 @@ function Header({ array }) {
     </div>
   );
 }
+
+Header.propTypes = {
+  array: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      route: PropTypes.string.isRequired,
+      aria: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+};
 
 export default Header;

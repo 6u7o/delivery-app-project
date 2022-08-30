@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function CardProduct({ price, image, name }) {
   const [prodQuantity, setProdQuantity] = useState(0);
@@ -50,5 +51,11 @@ function CardProduct({ price, image, name }) {
     </div>
   );
 }
+
+CardProduct.propTypes = {
+  price: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};
 
 export default CardProduct;
