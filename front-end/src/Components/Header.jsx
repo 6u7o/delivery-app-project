@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 // import Button from './Header.button';
 
-function Header({ array }) {
+function Header({ array, userName }) {
   const navigate = useNavigate();
 
   return (
@@ -17,12 +17,17 @@ function Header({ array }) {
               onClick={ () => navigate(button.route) }
               aria-label={ button.aria }
               name={ button.name }
+              data-testid={ button.dataTestId }
             >
               { button.label }
             </button>
           ))
         }
-        <h3> PESSOA USUÁRIA </h3>
+        <h3
+          data-testid="customer_products__element-navbar-user-full-name"
+        >
+          {userName}
+        </h3>
         <button
           type="button"
           aria-label="logout-button"
@@ -46,6 +51,7 @@ Header.propTypes = {
       name: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
+  userName: PropTypes.string.isRequired,
 };
 
 export default Header;
