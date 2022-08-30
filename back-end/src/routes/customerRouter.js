@@ -12,7 +12,8 @@ customerRouter.post('/checkout', jwtValidateAndRefreshToken, postNewSaleMiddlewa
 customerRouter.get('/orders/',
   jwtValidateAndRefreshToken,
   customerController.getAllOrdersByUserId);
-customerRouter.get('/orders/:orderId', jwtValidateAndRefreshToken, customerController.getOrderProducts);
-
+customerRouter.get('/orders/:orderId',
+  jwtValidateAndRefreshToken,
+  customerController.getOrderProducts);
 
 module.exports = customerRouter;

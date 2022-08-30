@@ -23,7 +23,7 @@ const getOrderProducts = async (userId, orderId) => {
         as: 'products',
         through: { attributes: [] },
       },
-    ]
+    ],
   });
   if (!arrUserOrders) return false;
 
