@@ -1,20 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function DetailsTable({ id, user, product, email, quantity, userRole,
-  unitPrice, totalPrice, deleteUser, remove }) {
+function DetailsTable({
+  id,
+  user,
+  product,
+  email,
+  quantity,
+  userRole,
+  unitPrice,
+  totalPrice,
+  deleteUser,
+  remove,
+  dtTestIdItemId,
+  dtTestIdItemDesc,
+  dtTestIdUsermail,
+  dtTestIdOrderQtt,
+  dtTestIdUserRole,
+  dtTestIdUnitPrice,
+  dtTestIdTotalPrice,
+  dtTestIdDeleteUserBtn,
+  dtTestIdRemoveUserBtn,
+}) {
   return (
     <>
-      <td>{ id }</td>
-      <td>{ user || product }</td>
-      {email && (<td>{ email }</td>)}
-      {quantity && (<td>{ quantity }</td>)}
-      {userRole && (<td>{ userRole }</td>)}
-      {unitPrice && (<td>{ unitPrice }</td>)}
-      {totalPrice && (<td>{ totalPrice }</td>)}
+      <td
+        data-testid={ dtTestIdItemId }
+      >
+        { id }
+      </td>
+      <td
+        data-testid={ dtTestIdItemDesc }
+      >
+        { user || product }
+      </td>
+      {email && (
+        <td
+          data-testid={ dtTestIdUsermail }
+        >
+          { email }
+        </td>)}
+      {quantity && (
+        <td
+          data-testid={ dtTestIdOrderQtt }
+        >
+          { quantity }
+        </td>)}
+      {userRole && (
+        <td
+          data-testid={ dtTestIdUserRole }
+        >
+          { userRole }
+        </td>)}
+      {unitPrice && (
+        <td
+          data-testid={ dtTestIdUnitPrice }
+        >
+          { unitPrice }
+        </td>)}
+      {totalPrice && (
+        <td
+          data-testid={ dtTestIdTotalPrice }
+        >
+          { totalPrice }
+        </td>)}
       {deleteUser && (
         <td>
           <button
+            data-testid={ dtTestIdDeleteUserBtn }
             type="button"
             aria-label="delete-user-button"
           >
@@ -26,6 +79,7 @@ function DetailsTable({ id, user, product, email, quantity, userRole,
       {remove && (
         <td>
           <button
+            data-testid={ dtTestIdRemoveUserBtn }
             type="button"
             aria-label="remove-item-button"
           >
@@ -48,6 +102,15 @@ DetailsTable.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   deleteUser: PropTypes.bool.isRequired,
   remove: PropTypes.bool.isRequired,
+  dtTestIdItemId: PropTypes.string.isRequired,
+  dtTestIdItemDesc: PropTypes.string.isRequired,
+  dtTestIdUsermail: PropTypes.string.isRequired,
+  dtTestIdOrderQtt: PropTypes.string.isRequired,
+  dtTestIdUserRole: PropTypes.string.isRequired,
+  dtTestIdUnitPrice: PropTypes.string.isRequired,
+  dtTestIdTotalPrice: PropTypes.string.isRequired,
+  dtTestIdDeleteUserBtn: PropTypes.string.isRequired,
+  dtTestIdRemoveUserBtn: PropTypes.string.isRequired,
 };
 
 export default DetailsTable;
