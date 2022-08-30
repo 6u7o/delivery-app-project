@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function CardProduct({ price, image, name }) {
+function CardProduct({ price, image, name, id }) {
   const [prodQuantity, setProdQuantity] = useState(0);
 
   const handleIncrease = () => {
@@ -17,12 +17,15 @@ function CardProduct({ price, image, name }) {
 
   return (
     <div>
-      <span>
+      <span
+        data-testid={ `customer_products__element-card-price-${id}` }
+      >
         { price }
       </span>
       <img
         src={ image }
         alt="card-description"
+        data-testid={ `customer_products__element-card-title-${id}` }
       />
       <form>
         { name }
@@ -30,6 +33,7 @@ function CardProduct({ price, image, name }) {
           type="button"
           aria-label="decreaseQuantity"
           onClick={ handleDecrease }
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
         >
           -
         </button>
@@ -38,12 +42,14 @@ function CardProduct({ price, image, name }) {
             type="number"
             aria-label="qtty-products"
             value={ prodQuantity }
+            data-testid={ `customer_products__input-card-quantity-${id}` }
           />
         </label>
         <button
           type="button"
           aria-label="increaseQuantity"
           onClick={ handleIncrease }
+          data-testid={ `customer_products__button-card-add-item-${id} ` }
         >
           +
         </button>
@@ -56,6 +62,7 @@ CardProduct.propTypes = {
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default CardProduct;

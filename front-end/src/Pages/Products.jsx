@@ -32,6 +32,7 @@ function Products() {
           price={ product.price }
           image={ product.image }
           name={ product.name }
+          id={ product.id }
         />
       )) }
     </div>
