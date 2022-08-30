@@ -8,10 +8,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Sales.belongsTo(models.Users, {foreignKey: 'user_id'/* , as: 'user' */});
-      Sales.belongsTo(models.Users, {foreignKey: 'seller_id'/* , as: 'user' */});
+      // Sales.belongsTo(models.Users, {foreignKey: 'user_id'/* , as: 'user' */});
+      // Sales.belongsTo(models.Users, {foreignKey: 'seller_id'/* , as: 'user' */});
 
-      Sales.hasMany(models.SalesProducts, {foreignKey: 'sale_id', as: 'salesProducts'});
+      Sales.belongsToMany(models.Products, {
+        as: 'products',
+        through: 'salesProducts',
+      });
     
       // Turns out the problem is because I registering the model twice at initial setup on Sequelize. 
       // So removing duplicates model fix the core problems for me.
