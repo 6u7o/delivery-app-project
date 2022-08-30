@@ -14,13 +14,16 @@ function CustomerOrders() {
           route: '/customer/products',
           aria: 'customer-products-button',
           name: 'customer-products-button',
+          dataTestId: 'customer_products__element-navbar-link-products',
         },
         {
           label: 'MEUS PEDIDOS',
           route: '/customer/orders',
           aria: 'customer-orders-button',
           name: 'customer-orders-button',
+          dataTestId: 'customer_products__element-navbar-link-orders',
         }] }
+        userName={ api /* informar o caminho para pegar o userName */ }
       />
       <h1> CUSTOMER ORDERS </h1>
       { getOrderData?.map((order) => (
