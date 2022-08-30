@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
 import api from '../services/request';
 import CardProduct from '../Components/ProductCard';
 
 function Products() {
-  const getProductsData = api.get('/customer/products');
+  const [productsList, setProductsList] = useState([]);
+
+  useEffect(() => {
+    const getProductsData = async () => {
+      const { data } = await api.get('/customer/products');
+      setProductsList(data.data);
+    };
+    getProductsData();
+  }, []);
 
   return (
     <div>
@@ -23,11 +31,11 @@ function Products() {
         }] }
       />
       <h1> PRODUCTS </h1>
-      { getProductsData?.map((product) => (
+      { productsList.map((product) => (
         <CardProduct
           key={ product.name }
           price={ product.price }
-          image={ product.image }
+          image={ product.urlImage }
           name={ product.name }
         />
       )) }
