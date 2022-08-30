@@ -21,7 +21,7 @@ const getOrderProducts = async (userId, orderId) => {
       {
         model: Products,
         as: 'products',
-        through: { attributes: [] },
+        through: { attributes: ['quantity'] },
       },
     ],
   });
