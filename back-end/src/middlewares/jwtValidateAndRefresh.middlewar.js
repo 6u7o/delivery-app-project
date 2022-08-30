@@ -1,7 +1,7 @@
 const jwt = require('../auth/jwt');
 require('dotenv').config();
 
-const { User } = require('../database/models'); // Essa chamada da módel não deveria ser feita diretamente aqui. Aqui deveria ser chamado um service
+const { Users } = require('../database/models'); // Essa chamada da módel não deveria ser feita diretamente aqui. Aqui deveria ser chamado um service
 
 module.exports = async (req, res, next) => {
   const { authorization: token } = req.headers;
@@ -15,10 +15,10 @@ module.exports = async (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
     // descriptografa o token;
-    const tokenPayload = jwt.verifyAndReadToken(token);
+    const tokenPayload = await jwt.verifyAndReadToken(token);
 
     // verifica a existência do user que está fazendo a requisição;
-    const user = await User.findByPk(tokenPayload.id, {
+    const user = await Users.findByPk(tokenPayload.id, {
       attributes: { exclude: ['password'] },
     });
 
@@ -28,7 +28,7 @@ module.exports = async (req, res, next) => {
 
     //  cria o novo token
     const { id, email, name, role } = user;
-    const refreshToken = jwt.generateToken({ id, email, name, role });
+    const refreshToken = await jwt.generateToken({ id, email, name, role });
     // adiciona novos dados ao request para facilitar o trabalho. Os dados adicionados pelo tratamento interno estarão em PascalCase pois o lint não aceita '_';
     req.NewToken = refreshToken; req.UserId = id; req.UserRole = role;
     req.UserName = name; req.UserEmail = email; req.headers.authorization = refreshToken;

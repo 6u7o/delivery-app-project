@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+const fs = require('fs/promises');
 require('dotenv').config();
 
 const jwtConfig = {
@@ -7,15 +7,26 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const jwtSecret = process.env.JWT_SECRET || 'Swordfish';
+let jwtSecret;
 
-const generateToken = (payload, config = jwtConfig) => (
-  jwt.sign(payload, jwtSecret, config)
-);
+async function readJwrSecret() {
+  try {
+    const data = await fs.readFile('jwt.evaluation.key', { encoding: 'utf8' });
+    jwtSecret = data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-const verifyAndReadToken = (token) => (
-  jwt.verify(token, jwtSecret)
-);
+const generateToken = async (payload, config = jwtConfig) => {
+  await readJwrSecret();
+  return jwt.sign(payload, jwtSecret, config);
+};
+
+const verifyAndReadToken = async (token) => {
+  await readJwrSecret();
+  return jwt.verify(token, jwtSecret);
+};
 
 module.exports = {
   generateToken,
