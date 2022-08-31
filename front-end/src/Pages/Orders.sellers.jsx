@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../Components/Header';
 import CardOrder from '../Components/OrderCard';
+import api from '../services/request';
 
-function SellerOrders() {
-  const getOrderData = api.get('/seller/orders');
+function SellerOrdersDetails() {
+  const [ordersList, setOrdersList] = useState([]);
+  const { id } = useParams;
+  useEffect(() => {
+    const getSellersOrders = async () => {
+      const token = localStorage.getItem('token');
+      const config = {
+        headers: {
+          authorization: token,
+        },
+      };
+      const { data } = await api.get('/sales', config);
+      setOrdersList(data.data);
+    };
+    getSellersOrders();
+  }, []);
 
   return (
     <div>
@@ -16,17 +32,18 @@ function SellerOrders() {
         }] }
       />
       <h1> Sellers ORDERS </h1>
-      { getOrderData?.map((order) => (
+      { ordersList?.map((order) => (
         <CardOrder
           key={ order.id }
           id={ order.id }
-          date={ order.date }
+          date={ order.saleDate }
           status={ order.status }
           totalPrice={ order.totalPrice }
+          userId={ id }
         />
       ))}
     </div>
   );
 }
 
-export default SellerOrders;
+export default SellerOrdersDetails;

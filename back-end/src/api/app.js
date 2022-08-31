@@ -1,5 +1,5 @@
 const express = require('express');
-// const cors = require("cors");
+const cors = require("cors");
 require('express-async-errors');
 const appRouter = require('../routes');
 const errorMiddleware = require('../middlewares/errors/errorMiddleware.middlewares');
@@ -13,7 +13,7 @@ const allowCrossDomain = (_req, res, next) => {
   next();
 };
 
-// app.use(cors()); // caso vá utilizar o cors, é necessário reinstalar esse
+app.use(cors()); // caso vá utilizar o cors, é necessário reinstalar esse
 app.use(allowCrossDomain);
 app.use(express.json());
 app.use(appRouter);

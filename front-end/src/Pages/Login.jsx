@@ -39,8 +39,8 @@ function Login() {
       localStorage.setItem('token', loginData.data.token);
       localStorage.setItem('userEmail', loginData.data.email);
       localStorage.setItem('userName', loginData.data.name);
-      if (loginData.data.role === 'customer') navigate('/register');
-      if (loginData.data.role === 'seller') navigate('/seller');
+      if (loginData.data.role === 'customer') navigate('/customer/products');
+      if (loginData.data.role === 'seller') navigate('/seller/orders');
       if (loginData.data.role === 'administrator') navigate('/admin');
     } catch (err) {
       setError(true);
