@@ -1,8 +1,12 @@
 const { Sales, Products } = require('../database/models');
 
-const getAllOrdersByUserId = async (userId) => {
+const getAllOrdersByUserId = async (id, role) => {
+  let userType = 'userId';
+  if (role === 'seller') {
+    userType = 'sellerId';
+  }
   const arrUserOrders = await Sales.findAll({
-    where: { userId },
+    where: { [userType]: id },
     raw: true,
     // include: [
     //   { model:  } // incluir produtos
@@ -13,9 +17,9 @@ const getAllOrdersByUserId = async (userId) => {
   return arrUserOrders;
 };
 
-const getOrderProducts = async (userId, orderId) => {
+const getOrderProducts = async (orderId) => {
   const arrUserOrders = await Sales.findOne({
-    where: { id: orderId, userId },
+    where: { id: orderId },
     // raw: true,
     include: [
       {
