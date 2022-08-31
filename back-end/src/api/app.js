@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require("cors");
+const cors = require('cors');
 require('express-async-errors');
 const appRouter = require('../routes');
 const errorMiddleware = require('../middlewares/errors/errorMiddleware.middlewares');
