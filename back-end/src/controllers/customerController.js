@@ -17,7 +17,16 @@ const getOrderProducts = async (req, res) => {
   return res.status(200).json({ data: response, token: req.NewToken });
 };
 
+const getSellers = async (req, res) => {
+  const response = await userServices.getSellers();
+  if (!response) {
+    throw Error('Not found');
+  } 
+  return res.status(200).json({ data: response });
+};
+
 module.exports = {
   getAllOrdersByUserId,
   getOrderProducts,
+  getSellers
 };
