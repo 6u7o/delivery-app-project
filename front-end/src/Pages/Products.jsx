@@ -9,6 +9,7 @@ function Products() {
   useEffect(() => {
     const getProductsData = async () => {
       const { data } = await api.get('/customer/products');
+      // console.log(data.data);
       setProductsList(data.data);
     };
     getProductsData();
