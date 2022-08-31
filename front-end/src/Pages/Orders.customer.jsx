@@ -46,7 +46,7 @@ function CustomerOrders() {
         <CardOrder
           key={ order.id }
           id={ order.id }
-          date={ order.date }
+          date={ order.saleDate }
           status={ order.status }
           totalPrice={ order.totalPrice }
           dtTestIdOrder={ `customer_orders__element-order-id-${order.id}` }
