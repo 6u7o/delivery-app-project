@@ -20,7 +20,7 @@ function DetailsTable({
   dtTestIdUnitPrice,
   dtTestIdTotalPrice,
   dtTestIdDeleteUserBtn,
-  dtTestIdRemoveUserBtn,
+  dtTestIdRemoveProductBtn,
 }) {
   return (
     <>
@@ -79,7 +79,7 @@ function DetailsTable({
       {remove && (
         <td>
           <button
-            data-testid={ dtTestIdRemoveUserBtn }
+            data-testid={ dtTestIdRemoveProductBtn }
             type="button"
             aria-label="remove-item-button"
           >
@@ -110,7 +110,7 @@ DetailsTable.propTypes = {
   dtTestIdUnitPrice: PropTypes.string.isRequired,
   dtTestIdTotalPrice: PropTypes.string.isRequired,
   dtTestIdDeleteUserBtn: PropTypes.string.isRequired,
-  dtTestIdRemoveUserBtn: PropTypes.string.isRequired,
+  dtTestIdRemoveProductBtn: PropTypes.string.isRequired,
 };
 
 export default DetailsTable;

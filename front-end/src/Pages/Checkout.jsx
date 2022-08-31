@@ -54,15 +54,33 @@ function Checkout() {
         </thead>
         <tbody>
           {
-            arrayDataMock?.map((item) => (
+            arrayDataMock?.map((item, index) => (
               <tr key={ item.id }>
                 <DetailsTable
                   id={ item.id }
+                  dtTestIdItemId={
+                    `customer_checkout__element-order-table-item-number-${index}`
+                  }
                   product={ item.product }
+                  dtTestIdItemDesc={
+                    `customer_checkout__element-order-table-name-${index}`
+                  }
                   quantity={ item.quantity }
+                  dtTestIdOrderQtt={
+                    `customer_checkout__element-order-table-quantity-${index}`
+                  }
                   unitPrice={ item.unitPrice }
+                  dtTestIdUnitPrice={
+                    `customer_checkout__element-order-table-unit-price-${index}`
+                  }
                   totalPrice={ item.totalPrice }
+                  dtTestIdTotalPrice={
+                    `customer_checkout__element-order-table-sub-total-${index}`
+                  }
                   remove
+                  dtTestIdRemoveProductBtn={
+                    `customer_checkout__element-order-table-remove-${index}`
+                  }
                 />
               </tr>
 

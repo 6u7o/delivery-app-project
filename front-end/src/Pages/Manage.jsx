@@ -44,14 +44,23 @@ function Manage() {
         </thead>
         <tbody>
           {
-            arrayDataMock?.map((item) => (
-              <tr key={ item.id }>
+            arrayDataMock?.map((user, index) => (
+              <tr key={ user.id }>
                 <DetailsTable
-                  id={ item.id }
-                  user={ item.user }
-                  email={ item.email }
-                  userRole={ item.userRole }
+                  id={ user.id }
+                  dtTestIdItemId={
+                    `admin_manage__element-user-table-item-number-${index}`
+                  }
+                  user={ user.user /* user ou name */ }
+                  dtTestIdItemDesc={ `admin_manage__element-user-table-name-${index}` }
+                  email={ user.email }
+                  dtTestIdUsermail={ `admin_manage__element-user-table-email-${index}` }
+                  userRole={ user.userRole }
+                  dtTestIdUserRole={ `admin_manage__element-user-table-role-${index}` }
                   deleteUser
+                  dtTestIdDeleteUserBtn={
+                    `admin_manage__element-user-table-remove-${index}`
+                  }
                 />
               </tr>
 

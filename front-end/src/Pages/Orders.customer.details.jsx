@@ -53,14 +53,29 @@ function CustomerOrdersDetails() {
         </thead>
         <tbody>
           {
-            arrayDataMock?.map((item) => (
+            arrayDataMock?.map((item, index) => (
               <tr key={ item.id }>
                 <DetailsTable
                   id={ item.id }
+                  dtTestIdItemId={
+                    `customer_order_details__element-order-table-item-number-${index}`
+                  }
                   product={ item.product }
+                  dtTestIdItemDesc={
+                    `customer_order_details__element-order-table-name-${index}`
+                  }
                   quantity={ item.quantity }
+                  dtTestIdOrderQtt={
+                    `customer_order_details__element-order-table-quantity-${index}`
+                  }
                   unitPrice={ item.unitPrice }
+                  dtTestIdUnitPrice={
+                    `customer_order_details__element-order-table-sub-total-${index}`
+                  }
                   totalPrice={ item.totalPrice }
+                  dtTestIdTotalPrice={
+                    `customer_order_details__element-order-total-price-${index}`
+                  }
                 />
               </tr>
 
