@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import Header from '../Components/Header';
 import CardOrder from '../Components/OrderCard';
 import api from '../services/request';
 
 function SellerOrdersDetails() {
   const [ordersList, setOrdersList] = useState([]);
-  const { id } = useParams;
+  // const { id } = useParams;
   useEffect(() => {
     const getSellersOrders = async () => {
       const token = localStorage.getItem('token');
@@ -39,7 +39,7 @@ function SellerOrdersDetails() {
           date={ order.saleDate }
           status={ order.status }
           totalPrice={ order.totalPrice }
-          userId={ id }
+          // userId={ id }
         />
       ))}
     </div>

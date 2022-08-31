@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function CardOrder({ id, status, date, totalPrice, userId }) {
+function CardOrder({ id, status, date, totalPrice }) {
   return (
-    <Link to={ `seller/${userId}` }>
+    <Link to={ `/seller/orders/${id}` }>
       <div>
 
         <div>
