@@ -39,9 +39,10 @@ function Login() {
       localStorage.setItem('token', loginData.data.token);
       localStorage.setItem('userEmail', loginData.data.email);
       localStorage.setItem('userName', loginData.data.name);
-      if (loginData.data.role === 'seller') navigate('/sellerseller/orders');
-      if (loginData.data.role === 'administrator') navigate('admin/manage');
+      if (loginData.data.role === 'administrator') navigate('/admin/manage');
       navigate('/customer/products');
+      if (loginData.data.role === 'customer') navigate('/customer/products');
+      if (loginData.data.role === 'seller') navigate('/seller/orders');
     } catch (err) {
       setError(true);
     }
