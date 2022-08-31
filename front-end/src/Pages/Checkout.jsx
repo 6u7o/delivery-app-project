@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
 import DetailsTable from '../Components/TableDetails';
 // import api from '../services/request';
+import { getFromLocalStorage } from '../services/handleLocalStorage';
 
 function Checkout() {
-  // const arrayData = await api.get('/customer/checkout');
-  const arrayDataMock = [
+  const [productsList, setProductsList] = useState([]);
+
+  useEffect(() => {
+    const getProductsData = async () => {
+      const itemsLS = await getFromLocalStorage('carrinho');
+      // console.log(itemsLS);
+      setProductsList(itemsLS);
+    };
+    getProductsData();
+  }, []);
+  /*  const arrayDataMock = [
     {
       id: 1,
       product: 'Beer',
@@ -20,7 +30,7 @@ function Checkout() {
       unitPrice: 'R$ 3,50',
       totalPrice: 'R$ 21,00',
     },
-  ];
+  ]; */
   return (
     <div>
       <Header
@@ -51,7 +61,7 @@ function Checkout() {
         </thead>
         <tbody>
           {
-            arrayDataMock?.map((item) => (
+            productsList?.map((item) => (
               <tr key={ item.id }>
                 <DetailsTable
                   id={ item.id }
