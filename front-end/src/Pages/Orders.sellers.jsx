@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
 import Header from '../Components/Header';
 import CardOrder from '../Components/OrderCard';
 import api from '../services/request';
@@ -47,7 +46,7 @@ function SellerOrdersDetails() {
           dtTestIdOrderTPrice={ `seller_orders__element-card-price-${order.id}` }
           dtTestIdOrderAdress={ `seller_orders__element-card-address-${order.id}` }
           orderAdress={ order.adress }
-          // userId={ id }
+          path="seller"
         />
       ))}
     </div>
