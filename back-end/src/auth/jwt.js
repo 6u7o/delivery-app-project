@@ -3,7 +3,7 @@ const fs = require('fs/promises');
 require('dotenv').config();
 
 const jwtConfig = {
-  expiresIn: '30m', // nome das chaves não deve ser alterado;
+  expiresIn: '8h', // nome das chaves não deve ser alterado;
   algorithm: 'HS256',
 };
 
