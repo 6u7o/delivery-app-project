@@ -5,7 +5,8 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   const response = await loginService.login(email, password);
   if (!response) {
-    throw Error('Not found');
+    return res.status(404).json({ message: 'not found', error: true });
+    // throw Error('Not found');
   } 
   return res.status(200).json(response);
 };
