@@ -61,7 +61,11 @@ function CardProduct({ price, image, name, id }) {
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
       <form>
-        { name }
+        <span
+          data-testid={ `customer_products__element-card-title-${id}` }
+        >
+          { name }
+        </span>
         <button
           type="button"
           aria-label="decreaseQuantity"
@@ -83,7 +87,7 @@ function CardProduct({ price, image, name, id }) {
           type="button"
           aria-label="increaseQuantity"
           onClick={ handleIncrease }
-          data-testid={ `customer_products__button-card-add-item-${id} ` }
+          data-testid={ `customer_products__button-card-add-item-${id}` }
           name={ id }
         >
           +
