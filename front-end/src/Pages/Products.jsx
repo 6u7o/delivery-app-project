@@ -17,13 +17,19 @@ function Products() {
 
   useEffect(() => {
     const getProductsData = async () => {
-      const { data } = await api.get('/customer/products');
-      // console.log(data.data);
-      setProductsList(data.data);
+      try {
+        const { data } = await api.get('/customer/products');
+        setProductsList(data.data);
+        // console.log(data.data);
+      } catch (err) {
+        // CASO O TOKEN ESTEJA INVÁLIDO, A APLICAÇÃO FAZ LOGOUT
+        localStorage.clear();
+        navigate('/customer/checkout');
+      }
     };
     getProductsData();
     handleTotalPrice();
-  }, []);
+  }, [navigate]);
 
   return (
     <div>
