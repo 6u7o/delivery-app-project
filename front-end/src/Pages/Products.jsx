@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
 import api from '../services/request';
 import CardProduct from '../Components/ProductCard';
 
 function Products() {
   const [productsList, setProductsList] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
+  // const cart = JSON.parse(localStorage.getItem('carrinho'));
+
+  const handleTotalPrice = () => {
+    const cart = JSON.parse(localStorage.getItem('carrinho'));
+    setCartItems(cart || []);
+  };
 
   useEffect(() => {
     const getProductsData = async () => {
@@ -13,6 +22,7 @@ function Products() {
       setProductsList(data.data);
     };
     getProductsData();
+    handleTotalPrice();
   }, []);
 
   return (
@@ -42,8 +52,24 @@ function Products() {
           image={ product.urlImage }
           name={ product.name }
           id={ product.id }
+          handleTotalPrice={ handleTotalPrice }
         />
       )) }
+      <div>
+        <button
+          type="button"
+          onClick={ () => navigate('/customer/checkout') }
+          disabled={
+            !(cartItems.reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
+          }
+        >
+          {
+            `Ver Carrinho: R$ ${(cartItems
+              .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
+              .toFixed(2)}`
+          }
+        </button>
+      </div>
     </div>
   );
 }

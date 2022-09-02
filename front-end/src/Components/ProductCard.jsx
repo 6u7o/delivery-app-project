@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { sendToLocalStorage, getFromLocalStorage } from '../services/handleLocalStorage';
 
-function CardProduct({ price, image, name, id }) {
+function CardProduct({ price, image, name, id, handleTotalPrice }) {
   const [prodQuantity, setProdQuantity] = useState(0);
+
+  useEffect(() => {
+    const getProdQuantity = async () => {
+      const storageData = getFromLocalStorage('carrinho');
+      const itemData = storageData.find(({ id: idProd }) => idProd === id);
+      if (itemData) setProdQuantity(itemData.quantity);
+    };
+    getProdQuantity();
+  }, [id]);
 
   const handleIncrease = () => {
     setProdQuantity(prodQuantity + 1);
@@ -22,6 +31,7 @@ function CardProduct({ price, image, name, id }) {
       sendToLocalStorage('carrinho', [...newStorageData,
         { id, unitPrice: price, quantity: 1, product: name, totalPrice: price }]);
     }
+    handleTotalPrice();
   };
 
   const handleDecrease = () => {
@@ -46,6 +56,37 @@ function CardProduct({ price, image, name, id }) {
       const newStorageData = storageData.filter((item) => item.id !== id);
       sendToLocalStorage('carrinho', [...newStorageData]);
     }
+    handleTotalPrice();
+  };
+
+  const handleInputQuantity = ({ target }) => {
+    setProdQuantity(target.value);
+
+    const storageData = getFromLocalStorage('carrinho');
+    const productExists = storageData?.find((el) => el.id === id);
+
+    if (productExists) {
+      productExists.quantity = target.value;
+      productExists.totalPrice = (Number(price) * productExists.quantity).toFixed(2);
+      const newStorageData = storageData.filter((item) => item.id !== id);
+      sendToLocalStorage('carrinho', [...newStorageData, { ...productExists }]);
+    } else {
+      const newStorageData = storageData.filter((item) => item.id !== id);
+      sendToLocalStorage('carrinho', [...newStorageData,
+        {
+          id,
+          unitPrice: price,
+          quantity: target.value,
+          product: name,
+          totalPrice: price * target.value,
+        }]);
+    }
+
+    if (target.value === '0') {
+      const newStorageData = storageData.filter((item) => item.id !== id);
+      sendToLocalStorage('carrinho', [...newStorageData]);
+    }
+    handleTotalPrice();
   };
 
   return (
@@ -81,6 +122,8 @@ function CardProduct({ price, image, name, id }) {
             aria-label="qtty-products"
             value={ prodQuantity }
             data-testid={ `customer_products__input-card-quantity-${id}` }
+            onChange={ handleInputQuantity }
+            min="0"
           />
         </label>
         <button
@@ -102,6 +145,7 @@ CardProduct.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
+  handleTotalPrice: PropTypes.func.isRequired,
 };
 
 export default CardProduct;
