@@ -32,7 +32,7 @@ function Products() {
           name: 'customer-orders-button',
           dataTestId: 'customer_products__element-navbar-link-orders',
         }] }
-        userName={ api /* informar o caminho para pegar o userName */ }
+        userName={ localStorage.getItem('userName') }
       />
       <h1> PRODUCTS </h1>
       { productsList.map((product) => (
