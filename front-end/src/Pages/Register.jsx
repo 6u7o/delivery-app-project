@@ -27,6 +27,17 @@ function Register() {
     try {
       const registerData = await api.post('/register', { name, email, password });
       if (registerData) {
+        localStorage.setItem('role', loginData.data.role);
+        localStorage.setItem('token', loginData.data.token);
+        localStorage.setItem('userEmail', loginData.data.email);
+        localStorage.setItem('userName', loginData.data.name);
+        const saveUser = {
+          role: loginData.data.role,
+          name: loginData.data.name,
+          token: loginData.data.token,
+          email: loginData.data.email,
+        };
+        localStorage.setItem('user', JSON.stringify(saveUser));
         navigate('/customer/products');
       }
     } catch (err) {
