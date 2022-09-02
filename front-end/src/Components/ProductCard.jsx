@@ -58,7 +58,7 @@ function CardProduct({ price, image, name, id }) {
       <img
         src={ image }
         alt="card-description"
-        data-testid={ `customer_products__element-card-title-${id}` }
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
       <form>
         { name }
