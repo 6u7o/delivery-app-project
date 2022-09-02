@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../Components/Header';
 import CardOrder from '../Components/OrderCard';
 import api from '../services/request';
 
 function CustomerOrders() {
-  const getOrderData = api.get('/customer/orders');
+  const [ordersList, setOrdersList] = useState([]);
+  const [userName, setUserName] = useState('');
 
+  useEffect(() => {
+    const getOrderData = async () => {
+      const token = localStorage.getItem('token');
+      const userNameLocal = localStorage.getItem('userName');
+      const config = {
+        headers: {
+          authorization: token,
+        },
+      };
+      const { data } = await api.get('/sales', config);
+      setOrdersList(data.data);
+      setUserName(userNameLocal);
+    };
+    getOrderData();
+  }, []);
   return (
     <div>
       <Header
@@ -23,16 +39,17 @@ function CustomerOrders() {
           name: 'customer-orders-button',
           dataTestId: 'customer_products__element-navbar-link-orders',
         }] }
-        userName={ api /* informar o caminho para pegar o userName */ }
+        userName={ userName }
       />
       <h1> CUSTOMER ORDERS </h1>
-      { getOrderData?.map((order) => (
+      { ordersList?.map((order) => (
         <CardOrder
           key={ order.id }
           id={ order.id }
-          date={ order.date }
+          date={ order.saleDate }
           status={ order.status }
           totalPrice={ order.totalPrice }
+          path="customer"
           dtTestIdOrder={ `customer_orders__element-order-id-${order.id}` }
           dtTestIdOrderStats={ `customer_orders__element-delivery-status${order.id}` }
           dtTestIdOrderDate={ `customer_orders__element-order-date-${order.id}` }
