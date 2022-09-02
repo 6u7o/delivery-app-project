@@ -49,6 +49,7 @@ function CustomerOrders() {
           date={ order.saleDate }
           status={ order.status }
           totalPrice={ order.totalPrice }
+          path="customer"
           dtTestIdOrder={ `customer_orders__element-order-id-${order.id}` }
           dtTestIdOrderStats={ `customer_orders__element-delivery-status${order.id}` }
           dtTestIdOrderDate={ `customer_orders__element-order-date-${order.id}` }

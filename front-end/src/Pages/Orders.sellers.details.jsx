@@ -1,10 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../Components/Header';
 import DetailsTable from '../Components/TableDetails';
 import api from '../services/request';
 
 function SellerOrdersDetails() {
-  const getOrdersData = api.get('/customer/products');
+  const [detailsList, setOrdersList] = useState([]);
+  const [userName, setUserName] = useState('');
+  const [orderStatus, setOrderStatus] = useState('');
+  const { id } = useParams();
+  useEffect(() => {
+    const getSellersOrders = async () => {
+      const token = localStorage.getItem('token');
+      const config = {
+        headers: {
+          authorization: token,
+        },
+      };
+      const userNameLocal = localStorage.getItem('userName');
+      setUserName(userNameLocal);
+      const { data } = await api.get(`sales/${id}`, config);
+      console.log('data.data: ', data.data.status);
+      setOrderStatus(data.data.status);
+      const products = data.data.products.map((prod) => {
+        const obj = {
+          id: prod.id,
+          name: prod.name,
+          unitPrice: prod.price,
+          quantity: prod.salesProducts.quantity,
+          totalPrice: Number(prod.price) * Number(prod.salesProducts.quantity),
+        };
+        return obj;
+      });
+      setOrdersList(products);
+    };
+    getSellersOrders();
+  }, [id, userName]);
+
+  const isButtonDisabled = () => orderStatus !== 'Pendente';
+
   return (
     <div>
       <Header
@@ -15,9 +49,17 @@ function SellerOrdersDetails() {
           name: 'seller-orders-button',
           dataTestId: 'customer_products__element-navbar-link-orders',
         }] }
-        userName={ api /* informar o caminho para pegar o userName */ }
+        userName={ userName }
       />
       <h1> Sellers ORDERS DETAILS </h1>
+      <button
+        type="button"
+        aria-label="button"
+        disabled={ isButtonDisabled() }
+        onClick={ onClickButton }
+        data-testid="common_login__button-login"
+        name="login-button"
+      />
       <table>
         <thead>
           <tr>
@@ -30,14 +72,14 @@ function SellerOrdersDetails() {
         </thead>
         <tbody>
           {
-            getOrdersData?.map((order, index) => (
+            detailsList?.map((order, index) => (
               <tr key={ order.id }>
                 <DetailsTable
                   id={ order.id }
                   dtTestIdItemId={
                     `seller_order_details__element-order-table-item-number-${index}`
                   }
-                  product={ order.product }
+                  product={ order.name }
                   dtTestIdItemDesc={
                     `seller_order_details__element-order-table-name-${index}`
                   }

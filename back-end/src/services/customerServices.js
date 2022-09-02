@@ -1,4 +1,4 @@
-const { Sales, Products } = require('../database/models');
+const { Sales, Products, Users  } = require('../database/models');
 
 const getAllOrdersByUserId = async (id, role) => {
   let userType = 'userId';
@@ -34,7 +34,19 @@ const getOrderProducts = async (orderId) => {
   return arrUserOrders;
 };
 
+const getSellers = async () => {
+  const allSellers = await Users.findAll({
+    where: { role: 'seller' },
+    // raw: true,
+  });
+  if (!allSellers) return false;
+
+  return allSellers;
+};
+
+
 module.exports = {
   getAllOrdersByUserId,
   getOrderProducts,
+  getSellers
 };
