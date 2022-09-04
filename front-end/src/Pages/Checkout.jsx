@@ -49,15 +49,15 @@ function Checkout() {
     const body = {
       saleData: {
         sellerId,
-        totalPrice: String((productsList
+        totalPrice: (productsList
           .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
-          .toFixed(2)).replace('.', ','), // remover o .toFixed(2) se o tipo esperado for um number e não uma string // refatorar para usar esses valores direto de um estado após o o 'component did mount'
+          .toFixed(2), // remover o .toFixed(2) se o tipo esperado for um number e não uma string
         deliveryAddress: address,
         deliveryNumber: addressNumber,
       },
       products: productsList,
     };
-    await api.post(`sales/${sellerId}`, body, config);
+    await api.post('customer/checkout', body, config);
   };
 
   return (
