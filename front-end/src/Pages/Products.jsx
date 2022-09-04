@@ -70,9 +70,9 @@ function Products() {
           }
         >
           {
-            `Ver Carrinho: R$ ${(cartItems
+            `Ver Carrinho: R$ ${String((cartItems
               .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
-              .toFixed(2)}`
+              .toFixed(2)).replace('.', ',')}`
           }
         </button>
       </div>
