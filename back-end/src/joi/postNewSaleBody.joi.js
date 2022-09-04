@@ -8,10 +8,11 @@ const newUserDataSchema = Joi.object({
     deliveryNumber: Joi.number().min(1).required(),
   }),
   products: Joi.array().items(Joi.object({
-    productId: Joi.number().min(1).required(),
+    id: Joi.number().min(1).required(),
     quantity: Joi.number().min(1).required(),
-    unityValue: Joi.number(),
-    name: Joi.string(),
+    unitPrice: Joi.number(),
+    product: Joi.string(),
+    totalPrice: Joi.number(),
   })),
 }).messages({
   'any.required': '{{#label}} is required///400',
