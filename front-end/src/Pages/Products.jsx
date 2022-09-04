@@ -68,6 +68,7 @@ function Products() {
           disabled={
             !(cartItems.reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
           }
+          data-testid="customer_products__button-cart"
         >
           {
             `Ver Carrinho: R$ ${String((cartItems
