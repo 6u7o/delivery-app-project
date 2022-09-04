@@ -56,13 +56,13 @@ function DetailsTable({
         <td
           data-testid={ dtTestIdUnitPrice }
         >
-          { unitPrice }
+          { String(unitPrice).replace('.', ',') }
         </td>)}
       {totalPrice && (
         <td
           data-testid={ dtTestIdTotalPrice }
         >
-          { totalPrice }
+          { String(totalPrice).replace('.', ',') }
         </td>)}
       {deleteUser && (
         <td>
