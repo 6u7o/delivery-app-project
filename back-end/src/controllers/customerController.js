@@ -28,5 +28,5 @@ const getSellers = async (req, res) => {
 module.exports = {
   getAllOrdersByUserId,
   getOrderProducts,
-  getSellers
+  getSellers,
 };

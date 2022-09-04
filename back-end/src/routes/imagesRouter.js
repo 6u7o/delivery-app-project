@@ -1,5 +1,4 @@
 const express = require('express');
-const { getImagesByName } = require('../controllers/imagesController');
 
 const customerRouter = express.Router();
 
