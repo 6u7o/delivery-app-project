@@ -49,9 +49,9 @@ function Checkout() {
     const body = {
       saleData: {
         sellerId,
-        totalPrice: (productsList
+        totalPrice: String((productsList
           .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
-          .toFixed(2), // remover o .toFixed(2) se o tipo esperado for um number e não uma string
+          .toFixed(2)).replace('.', ','), // remover o .toFixed(2) se o tipo esperado for um number e não uma string // refatorar para usar esses valores direto de um estado após o o 'component did mount'
         deliveryAddress: address,
         deliveryNumber: addressNumber,
       },
@@ -129,9 +129,9 @@ function Checkout() {
       <div data-testid="customer_checkout__element-order-total-price">
         <h3>
           {
-            `Total: R$ ${(productsList
+            `Total: R$ ${String((productsList
               .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
-              .toFixed(2)}`
+              .toFixed(2)).replace('.', ',')}`
           }
         </h3>
       </div>
