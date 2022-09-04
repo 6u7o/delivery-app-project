@@ -70,11 +70,13 @@ function Products() {
           }
           data-testid="customer_products__button-cart"
         >
-          {
-            `Ver Carrinho: R$ ${String((cartItems
-              .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
-              .toFixed(2)).replace('.', ',')}`
-          }
+          <span data-testid="customer_products__checkout-bottom-value">
+            {
+              `Ver Carrinho: R$ ${String((cartItems
+                .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
+                .toFixed(2)).replace('.', ',')}`
+            }
+          </span>
         </button>
       </div>
     </div>
