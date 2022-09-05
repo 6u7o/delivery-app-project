@@ -27,9 +27,21 @@ function Register() {
     try {
       const registerData = await api.post('/register', { name, email, password });
       if (registerData) {
+        localStorage.setItem('role', registerData.data.role);
+        localStorage.setItem('token', registerData.data.token);
+        localStorage.setItem('userEmail', registerData.data.email);
+        localStorage.setItem('userName', registerData.data.name);
+        const saveUser = {
+          role: registerData.data.role,
+          name: registerData.data.name,
+          token: registerData.data.token,
+          email: registerData.data.email,
+        };
+        localStorage.setItem('user', JSON.stringify(saveUser));
         navigate('/customer/products');
       }
     } catch (err) {
+      console.log('error:', err.message);
       setError(true);
       // console.log(err);
     }

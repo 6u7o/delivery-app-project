@@ -1,4 +1,3 @@
-const md5 = require('md5');
 const { Users } = require('../../database/models');
 const { generateToken } = require('../../auth/jwt');
 
@@ -7,7 +6,7 @@ const createOne = async (userData) => {
     {
       name: userData.name,
       email: userData.email,
-      password: md5(userData.password),
+      password: userData.password,
     },
     {
       raw: true,

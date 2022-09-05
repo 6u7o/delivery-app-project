@@ -1,19 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
 import api from '../services/request';
 import CardProduct from '../Components/ProductCard';
 
 function Products() {
   const [productsList, setProductsList] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
+  // const cart = JSON.parse(localStorage.getItem('carrinho'));
+
+  const handleTotalPrice = () => {
+    const cart = JSON.parse(localStorage.getItem('carrinho'));
+    setCartItems(cart || []);
+  };
 
   useEffect(() => {
     const getProductsData = async () => {
-      const { data } = await api.get('/customer/products');
-      // console.log(data.data);
-      setProductsList(data.data);
+      try {
+        const { data } = await api.get('/customer/products');
+        setProductsList(data.data);
+        // console.log(data.data);
+      } catch (err) {
+        // CASO O TOKEN ESTEJA INVÁLIDO, A APLICAÇÃO FAZ LOGOUT
+        localStorage.clear();
+        navigate('/customer/checkout');
+      }
     };
     getProductsData();
-  }, []);
+    handleTotalPrice();
+  }, [navigate]);
 
   return (
     <div>
@@ -32,7 +48,7 @@ function Products() {
           name: 'customer-orders-button',
           dataTestId: 'customer_products__element-navbar-link-orders',
         }] }
-        userName={ api /* informar o caminho para pegar o userName */ }
+        userName={ localStorage.getItem('userName') }
       />
       <h1> PRODUCTS </h1>
       { productsList.map((product) => (
@@ -42,8 +58,27 @@ function Products() {
           image={ product.urlImage }
           name={ product.name }
           id={ product.id }
+          handleTotalPrice={ handleTotalPrice }
         />
       )) }
+      <div>
+        <button
+          type="button"
+          onClick={ () => navigate('/customer/checkout') }
+          disabled={
+            !(cartItems.reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
+          }
+          data-testid="customer_products__button-cart"
+        >
+          <span data-testid="customer_products__checkout-bottom-value">
+            {
+              `Ver Carrinho: R$ ${String((cartItems
+                .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
+                .toFixed(2)).replace('.', ',')}`
+            }
+          </span>
+        </button>
+      </div>
     </div>
   );
 }

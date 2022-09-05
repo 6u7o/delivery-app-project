@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 function DetailsTable({
   id,
@@ -56,13 +56,13 @@ function DetailsTable({
         <td
           data-testid={ dtTestIdUnitPrice }
         >
-          { unitPrice }
+          { String(unitPrice).replace('.', ',') }
         </td>)}
       {totalPrice && (
         <td
           data-testid={ dtTestIdTotalPrice }
         >
-          { totalPrice }
+          { String(totalPrice).replace('.', ',') }
         </td>)}
       {deleteUser && (
         <td>
@@ -91,26 +91,26 @@ function DetailsTable({
   );
 }
 
-// DetailsTable.propTypes = {
-//   id: PropTypes.number.isRequired,
-//   user: PropTypes.string.isRequired,
-//   product: PropTypes.string.isRequired,
-//   email: PropTypes.string.isRequired,
-//   quantity: PropTypes.number.isRequired,
-//   userRole: PropTypes.string.isRequired,
-//   unitPrice: PropTypes.number.isRequired,
-//   totalPrice: PropTypes.number.isRequired,
-//   deleteUser: PropTypes.bool.isRequired,
-//   remove: PropTypes.bool.isRequired,
-//   dtTestIdItemId: PropTypes.string.isRequired,
-//   dtTestIdItemDesc: PropTypes.string.isRequired,
-//   dtTestIdUsermail: PropTypes.string.isRequired,
-//   dtTestIdOrderQtt: PropTypes.string.isRequired,
-//   dtTestIdUserRole: PropTypes.string.isRequired,
-//   dtTestIdUnitPrice: PropTypes.string.isRequired,
-//   dtTestIdTotalPrice: PropTypes.string.isRequired,
-//   dtTestIdDeleteUserBtn: PropTypes.string.isRequired,
-//   dtTestIdRemoveProductBtn: PropTypes.string.isRequired,
-// };
+DetailsTable.propTypes = {
+  id: PropTypes.number.isRequired,
+  user: PropTypes.string.isRequired,
+  product: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
+  userRole: PropTypes.string.isRequired,
+  unitPrice: PropTypes.string.isRequired,
+  totalPrice: PropTypes.string.isRequired,
+  deleteUser: PropTypes.bool.isRequired,
+  remove: PropTypes.bool.isRequired,
+  dtTestIdItemId: PropTypes.string.isRequired,
+  dtTestIdItemDesc: PropTypes.string.isRequired,
+  dtTestIdUsermail: PropTypes.string.isRequired,
+  dtTestIdOrderQtt: PropTypes.string.isRequired,
+  dtTestIdUserRole: PropTypes.string.isRequired,
+  dtTestIdUnitPrice: PropTypes.string.isRequired,
+  dtTestIdTotalPrice: PropTypes.string.isRequired,
+  dtTestIdDeleteUserBtn: PropTypes.string.isRequired,
+  dtTestIdRemoveProductBtn: PropTypes.string.isRequired,
+};
 
 export default DetailsTable;

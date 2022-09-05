@@ -39,6 +39,13 @@ function Login() {
       localStorage.setItem('token', loginData.data.token);
       localStorage.setItem('userEmail', loginData.data.email);
       localStorage.setItem('userName', loginData.data.name);
+      const saveUser = {
+        role: loginData.data.role,
+        name: loginData.data.name,
+        token: loginData.data.token,
+        email: loginData.data.email,
+      };
+      localStorage.setItem('user', JSON.stringify(saveUser));
       if (loginData.data.role === 'administrator') navigate('/admin/manage');
       navigate('/customer/products');
       if (loginData.data.role === 'customer') navigate('/customer/products');
