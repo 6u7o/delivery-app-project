@@ -86,6 +86,7 @@ function CustomerOrdersDetails() {
                   dtTestIdUnitPrice={
                     `customer_order_details__element-order-table-sub-total-${index}`
                   }
+                  index={ index }
                   totalPrice={ item.totalPrice }
                   dtTestIdTotalPrice={
                     `customer_order_details__element-order-total-price-${index}`
