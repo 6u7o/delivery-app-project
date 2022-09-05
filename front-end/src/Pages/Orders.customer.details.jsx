@@ -3,13 +3,19 @@ import { useParams } from 'react-router-dom';
 import Header from '../Components/Header';
 import DetailsTable from '../Components/TableDetails';
 import api from '../services/request';
+// import { getFromLocalStorage } from '../services/handleLocalStorage';
+import OrderDetails from '../Components/OrderDetails';
 
 function CustomerOrdersDetails() {
   const [detailsList, setOrdersList] = useState([]);
   const [userName, setUserName] = useState('');
+  const [total, setTotal] = useState([]);
+  const [saleData, setSaleData] = useState('');
+
   const { id } = useParams();
+
   useEffect(() => {
-    const getSellersOrders = async () => {
+    const getOrdersData = async () => {
       const token = localStorage.getItem('token');
       const config = {
         headers: {
@@ -29,10 +35,22 @@ function CustomerOrdersDetails() {
         };
         return obj;
       });
-      console.log('products ', products);
+      // console.log('products ', products);
       setOrdersList(products);
+
+      const currentCartItens = JSON.parse(localStorage.getItem('carrinho'));
+      setTotal(currentCartItens);
+
+      const formatDate = data.data.saleDate.slice(0, +'-14').split('-');
+
+      setSaleData({
+        sellerName: data.data.seller.name,
+        saleDate: `${formatDate[2]}/${formatDate[1]}/${formatDate[0]}`,
+        saleStatus: data.data.status,
+      });
+      // console.log(data.data);
     };
-    getSellersOrders();
+    getOrdersData();
   }, [id, userName]);
 
   return (
@@ -54,7 +72,21 @@ function CustomerOrdersDetails() {
         }] }
         userName={ userName }
       />
-      <h1> CUSTOMER ORDERS DETAILS </h1>
+      <OrderDetails
+        dtTestIdOrderId="customer_order_details__element-order-details-label-order-id"
+        dtTestIdSaleDate="customer_order_details__element-order-details-label-order-date"
+        testIdStatus="customer_order_details__element-order-details-label-delivery-status"
+        id={ id }
+        seller={ saleData.sellerName }
+        date={ saleData.saleDate }
+        status={ saleData.saleStatus }
+        array={ [{
+          label: 'Marcar como entregue',
+          aria: 'botão de marcar pedido como entregue',
+          name: 'set-order-as-delivered-button',
+          dataTestId: 'customer_order_details__button-delivery-check',
+        }] }
+      />
       <table>
         <thead>
           <tr>
@@ -92,11 +124,19 @@ function CustomerOrdersDetails() {
                   }
                 />
               </tr>
-
             ))
           }
         </tbody>
       </table>
+      <div data-testid="customer_checkout__element-order-total-price">
+        <h3>
+          {
+            `Total: R$ ${String((total
+              .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
+              .toFixed(2)).replace('.', ',')}`
+          }
+        </h3>
+      </div>
     </div>
   );
 }
