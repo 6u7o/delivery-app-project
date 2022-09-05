@@ -13,7 +13,7 @@ function Checkout() {
   const [sellerId, setSellerId] = useState(2); // Número 2 porque é o Nº do id da primeira (e única XD) pessoa vendedora do array
 
   const navigate = useNavigate();
-  
+
   const handleDeleteItemButtonClick = (itemId) => {
     const currentCartItens = JSON.parse(localStorage.getItem('carrinho'));
 
