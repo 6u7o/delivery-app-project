@@ -31,7 +31,7 @@ function Header({ array, userName }) {
         <button
           type="button"
           aria-label="logout-button"
-          onClick={ () => navigate('/login') }
+          onClick={ () => { navigate('/login'); localStorage.clear(); } }
           data-testid="customer_products__element-navbar-link-logout"
           name="logout-button"
         >
