@@ -11,6 +11,15 @@ function Checkout() {
   const [addressNumber, setAddressNumber] = useState('');
   const [sellerId, setSellerId] = useState(2); // Número 2 porque é o Nº do id da primeira (e única XD) pessoa vendedora do array
 
+  const handleDeleteItemButtonClick = (itemId) => {
+    const currentCartItens = JSON.parse(localStorage.getItem('carrinho'));
+
+    const updatedCartItens = currentCartItens.filter(({ id }) => itemId !== id);
+
+    localStorage.setItem('carrinho', JSON.stringify(updatedCartItens));
+    setProductsList(updatedCartItens);
+  };
+
   useEffect(() => {
     const getProductsData = async () => {
       const itemsLS = await getFromLocalStorage('carrinho');
@@ -120,6 +129,7 @@ function Checkout() {
                   dtTestIdRemoveProductBtn={
                     `customer_checkout__element-order-table-remove-${index}`
                   }
+                  handleDeleteItemButtonClick={ handleDeleteItemButtonClick }
                 />
               </tr>
             ))
