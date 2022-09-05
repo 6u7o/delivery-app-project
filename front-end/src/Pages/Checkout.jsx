@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
 import DetailsTable from '../Components/TableDetails';
 import api from '../services/request';
@@ -11,6 +12,8 @@ function Checkout() {
   const [addressNumber, setAddressNumber] = useState('');
   const [sellerId, setSellerId] = useState(2); // Número 2 porque é o Nº do id da primeira (e única XD) pessoa vendedora do array
 
+  const navigate = useNavigate();
+  
   const handleDeleteItemButtonClick = (itemId) => {
     const currentCartItens = JSON.parse(localStorage.getItem('carrinho'));
 
@@ -66,7 +69,8 @@ function Checkout() {
       },
       products: productsList,
     };
-    await api.post('customer/checkout', body, config);
+    const orderData = await api.post('customer/checkout', body, config);
+    navigate(`/customer/orders/${orderData.data.data.id}`);
   };
 
   return (

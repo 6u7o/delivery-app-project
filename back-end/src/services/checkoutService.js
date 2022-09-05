@@ -9,10 +9,9 @@ const createSale = async (saleInfo) => {
       transaction,
       fields: ['sellerId', 'totalPrice', 'deliveryAddress', 'deliveryNumber', 'userId'],
     });
-    console.log('Chegou aqui', newSale.dataValues);
 
-    const formatedProducts = saleInfo.products.map(({ productId, quantity }) => (
-      { saleId: newSale.id, productId, quantity }
+    const formatedProducts = saleInfo.products.map(({ id, quantity }) => (
+      { saleId: newSale.id, productId: id, quantity }
     ));
 
     await SalesProducts.bulkCreate(formatedProducts, { transaction });
