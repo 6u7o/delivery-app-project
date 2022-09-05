@@ -12,6 +12,7 @@ function DetailsTable({
   totalPrice,
   deleteUser,
   remove,
+  handleDeleteItemButtonClick,
   dtTestIdItemId,
   dtTestIdItemDesc,
   dtTestIdUsermail,
@@ -82,6 +83,7 @@ function DetailsTable({
             data-testid={ dtTestIdRemoveProductBtn }
             type="button"
             aria-label="remove-item-button"
+            onClick={ () => handleDeleteItemButtonClick(id) }
           >
             REMOVER
           </button>
@@ -102,6 +104,7 @@ DetailsTable.propTypes = {
   totalPrice: PropTypes.string.isRequired,
   deleteUser: PropTypes.bool.isRequired,
   remove: PropTypes.bool.isRequired,
+  handleDeleteItemButtonClick: PropTypes.func.isRequired,
   dtTestIdItemId: PropTypes.string.isRequired,
   dtTestIdItemDesc: PropTypes.string.isRequired,
   dtTestIdUsermail: PropTypes.string.isRequired,

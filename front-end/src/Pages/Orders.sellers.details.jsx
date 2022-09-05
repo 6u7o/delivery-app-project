@@ -37,7 +37,39 @@ function SellerOrdersDetails() {
     getSellersOrders();
   }, [id, userName]);
 
-  const isButtonDisabled = () => orderStatus !== 'Pendente';
+  const isReadyButtonDisabled = () => orderStatus !== 'Pendente';
+
+  const isLeftButtonDisabled = () => orderStatus !== 'Preparando';
+
+  const onClickButton = async () => {
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        authorization: token,
+      },
+    };
+    const body = {
+      newStatus: 'Preparando',
+    };
+    const { data } = await api.patch(`sales/${id}`, body, config);
+    console.log('data do newStatus: ', data);
+    setOrderStatus('Preparando');
+  };
+
+  const onClickLeftButton = async () => {
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        authorization: token,
+      },
+    };
+    const body = {
+      newStatus: 'Em Trânsito',
+    };
+    const { data } = await api.patch(`sales/${id}`, body, config);
+    console.log('data do newStatus: ', data);
+    setOrderStatus('Em Trânsito');
+  };
 
   return (
     <div>
@@ -52,14 +84,27 @@ function SellerOrdersDetails() {
         userName={ userName }
       />
       <h1> Sellers ORDERS DETAILS </h1>
+      <h2>
+        {orderStatus}
+      </h2>
       <button
         type="button"
         aria-label="button"
-        disabled={ isButtonDisabled() }
+        disabled={ isReadyButtonDisabled() }
         onClick={ onClickButton }
-        data-testid="common_login__button-login"
         name="login-button"
-      />
+      >
+        PREPARAR PEDIDO
+      </button>
+      <button
+        type="button"
+        aria-label="button"
+        disabled={ isLeftButtonDisabled() }
+        onClick={ onClickLeftButton }
+        name="login-button"
+      >
+        SAIU PRA ENTREGA
+      </button>
       <table>
         <thead>
           <tr>
