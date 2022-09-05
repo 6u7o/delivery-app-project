@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate /* useEffect */ } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/request';
 import { changeEmail } from '../Redux/slicers/user.slicer';
+
+const COSTUMER_HOMEPAGE = '/customer/products';
 
 function Login() {
   const dispatch = useDispatch();
@@ -23,12 +25,12 @@ function Login() {
     );
   };
 
-  /*   useEffect(() => {
-    const token = localStorage.getItem('token');
+  useEffect(() => {
     const role = localStorage.getItem('role');
-    const name = localStorage.getItem('userName');
-    const email =
-  }, []); */
+    if (role === 'administrator') navigate('/admin/manage');
+    if (role === 'customer') navigate(COSTUMER_HOMEPAGE);
+    if (role === 'seller') navigate('/seller/orders');
+  }, [navigate]);
 
   const onClickButton = async (event) => {
     event.preventDefault();
@@ -47,8 +49,7 @@ function Login() {
       };
       localStorage.setItem('user', JSON.stringify(saveUser));
       if (loginData.data.role === 'administrator') navigate('/admin/manage');
-      navigate('/customer/products');
-      if (loginData.data.role === 'customer') navigate('/customer/products');
+      if (loginData.data.role === 'customer') navigate(COSTUMER_HOMEPAGE);
       if (loginData.data.role === 'seller') navigate('/seller/orders');
     } catch (err) {
       setError(true);
