@@ -1,4 +1,4 @@
-const { Sales, Products, Users  } = require('../database/models');
+const { Sales, Products, Users } = require('../database/models');
 
 const getAllOrdersByUserId = async (id, role) => {
   let userType = 'userId';
@@ -44,9 +44,8 @@ const getSellers = async () => {
   return allSellers;
 };
 
-
 module.exports = {
   getAllOrdersByUserId,
   getOrderProducts,
-  getSellers
+  getSellers,
 };
