@@ -7,9 +7,9 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+     static associate(models) {
       // Sales.belongsTo(models.Users, {foreignKey: 'user_id'/* , as: 'user' */});
-      // Sales.belongsTo(models.Users, {foreignKey: 'seller_id'/* , as: 'user' */});
+      Sales.belongsTo(models.Users, {foreignKey: 'seller_id', as: 'seller'});
 
       Sales.belongsToMany(models.Products, {
         as: 'products',
@@ -18,9 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     
       // Turns out the problem is because I registering the model twice at initial setup on Sequelize. 
       // So removing duplicates model fix the core problems for me.
-
-
     }
+
   }
   Sales.init(
     {

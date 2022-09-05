@@ -27,12 +27,18 @@ const getOrderProducts = async (orderId) => {
         as: 'products',
         through: { attributes: ['quantity'] },
       },
+      {
+        model: Users,
+        as: 'seller',
+        attributes: { exclude: ['password', 'email'] },
+      }
     ],
   });
   if (!arrUserOrders) return false;
 
   return arrUserOrders;
 };
+
 
 const getSellers = async () => {
   const allSellers = await Users.findAll({
