@@ -10,6 +10,7 @@ function OrderDetails({
   dtTestIdOrderId,
   dtTestIdSaleDate,
   testIdStatus,
+  // btnDisable,
 }) {
   return (
     <div>
@@ -39,10 +40,11 @@ function OrderDetails({
             <button
               key={ button.label }
               type="button"
-              onClick={ () => console.log('CLICK!') }
+              onClick={ () => button.onclickFunc(id) }
               aria-label={ button.aria }
               name={ button.name }
               data-testid={ button.dataTestId }
+              disabled={ button.btnDisable }
             >
               { button.label }
             </button>
@@ -54,6 +56,7 @@ function OrderDetails({
 }
 
 OrderDetails.propTypes = {
+  // btnDisable: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   seller: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,

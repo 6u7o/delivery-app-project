@@ -23,7 +23,6 @@ function SellerOrdersDetails() {
       const userNameLocal = localStorage.getItem('userName');
       setUserName(userNameLocal);
       const { data } = await api.get(`sales/${id}`, config);
-      console.log('data.data: ', data.data.status);
       setOrderStatus(data.data.status);
       const products = data.data.products.map((prod) => {
         const obj = {
@@ -43,7 +42,6 @@ function SellerOrdersDetails() {
         saleDate: `${formatDate[2]}/${formatDate[1]}/${formatDate[0]}`,
         saleStatus: data.data.status,
       });
-      // console.log(data.data);
     };
     getSellersOrders();
   }, [id, userName]);
@@ -52,7 +50,7 @@ function SellerOrdersDetails() {
 
   const isLeftButtonDisabled = () => orderStatus !== 'Preparando';
 
-  const onClickButton = async () => {
+  const onClickButton = async (idzinho) => {
     const token = localStorage.getItem('token');
     const config = {
       headers: {
@@ -62,12 +60,12 @@ function SellerOrdersDetails() {
     const body = {
       newStatus: 'Preparando',
     };
-    const { data } = await api.patch(`sales/${id}`, body, config);
-    console.log('data do newStatus: ', data);
+    await api.patch(`sales/${idzinho}`, body, config);
     setOrderStatus('Preparando');
   };
 
-  const onClickLeftButton = async () => {
+  const onClickLeftButton = async (idzinho) => {
+    console.log('cliquei1');
     const token = localStorage.getItem('token');
     const config = {
       headers: {
@@ -77,8 +75,7 @@ function SellerOrdersDetails() {
     const body = {
       newStatus: 'Em Trânsito',
     };
-    const { data } = await api.patch(`sales/${id}`, body, config);
-    console.log('data do newStatus: ', data);
+    await api.patch(`sales/${idzinho}`, body, config);
     setOrderStatus('Em Trânsito');
   };
 
@@ -100,41 +97,24 @@ function SellerOrdersDetails() {
         testIdStatus="seller_order_details__element-order-details-label-delivery-status"
         id={ id }
         date={ saleData.saleDate }
-        status={ saleData.saleStatus }
+        status={ orderStatus }
         array={ [{
           label: 'Preparar pedido',
           aria: 'botão de preparar pedido',
           name: 'prepare-order-button',
           dataTestId: 'seller_order_details__button-preparing-check',
+          onclickFunc: onClickButton,
+          btnDisable: isReadyButtonDisabled(),
         },
         {
           label: 'Saiu para entrega',
           aria: 'botão de saiu para entrega',
           name: 'set-to-deliver-button',
           dataTestId: 'seller_order_details__button-dispatch-check',
+          onclickFunc: onClickLeftButton,
+          btnDisable: isLeftButtonDisabled(),
         }] }
       />
-      <h2>
-        {orderStatus}
-      </h2>
-      <button
-        type="button"
-        aria-label="button"
-        disabled={ isReadyButtonDisabled() }
-        onClick={ onClickButton }
-        name="login-button"
-      >
-        PREPARAR PEDIDO
-      </button>
-      <button
-        type="button"
-        aria-label="button"
-        disabled={ isLeftButtonDisabled() }
-        onClick={ onClickLeftButton }
-        name="login-button"
-      >
-        SAIU PRA ENTREGA
-      </button>
       <table>
         <thead>
           <tr>
