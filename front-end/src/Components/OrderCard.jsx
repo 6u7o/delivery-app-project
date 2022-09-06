@@ -44,7 +44,7 @@ function CardOrder(
           <h3
             data-testid={ dtTestIdOrderTPrice }
           >
-            { totalPrice }
+            { String(totalPrice).replace('.', ',') }
           </h3>
           {orderAdress && (
             <h6
