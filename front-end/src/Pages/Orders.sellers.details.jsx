@@ -39,10 +39,10 @@ function SellerOrdersDetails() {
 
       setTotal(data.data.totalPrice);
 
-      // const formatDate = data.data.saleDate.slice(0, +'-14').split('-');
+      const formatDate = data.data.saleDate.slice(0, +'-14').split('-');
 
       setSaleData({
-        saleDate: data.data.saleDate,
+        saleDate: `${formatDate[2]}/${formatDate[1]}/${formatDate[0]}`,
         saleStatus: data.data.status,
       });
     };
@@ -159,8 +159,8 @@ function SellerOrdersDetails() {
           }
         </tbody>
       </table>
-      <div data-testid="seller_order_details__element-order-total-price">
-        <h3>
+      <div>
+        <h3 data-testid="seller_order_details__element-order-total-price">
           {
             `Total: R$ ${String(total).replace('.', ',')}`
           }

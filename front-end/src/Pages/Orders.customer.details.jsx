@@ -25,6 +25,7 @@ function CustomerOrdersDetails() {
       const userNameLocal = localStorage.getItem('userName');
       setUserName(userNameLocal);
       const { data } = await api.get(`sales/${id}`, config);
+      console.log('data: ', data);
       const products = data.data.products.map((prod) => {
         const obj = {
           id: prod.id,
@@ -39,12 +40,12 @@ function CustomerOrdersDetails() {
 
       setTotal(data.data.totalPrice);
 
-      // const formatDate = data.data.saleDate.slice(0, +'-14').split('-');
+      const formatDate = data.data.saleDate.slice(0, +'-14').split('-');
 
       setOrderStatus(data.data.status);
       setSaleData({
         sellerName: data.data.seller.name,
-        saleDate: data.data.saleDate,
+        saleDate: `${formatDate[2]}/${formatDate[1]}/${formatDate[0]}`,
         // saleStatus: data.data.status,
       });
     };
@@ -98,7 +99,7 @@ function CustomerOrdersDetails() {
           name: 'set-order-as-delivered-button',
           dataTestId: 'customer_order_details__button-delivery-check',
           onclickFunc: onClickButton,
-          btnDisable: orderStatus === 'Entregue',
+          btnDisable: orderStatus !== 'Em Trânsito',
         }] }
       />
       <table>
@@ -142,8 +143,8 @@ function CustomerOrdersDetails() {
           }
         </tbody>
       </table>
-      <div data-testid="customer_checkout__element-order-total-price">
-        <h3>
+      <div>
+        <h3 data-testid="customer_checkout__element-order-total-price">
           {
             `Total: R$ ${String(total)?.replace('.', ',')}`
           }

@@ -39,7 +39,7 @@ function CardOrder(
           <h3
             data-testid={ dtTestIdOrderDate }
           >
-            { date }
+            { `${date[2]}/${date[1]}/${date[0]}` }
           </h3>
           <h3
             data-testid={ dtTestIdOrderTPrice }

@@ -37,7 +37,7 @@ function SellerOrdersDetails() {
         <CardOrder
           key={ order.id }
           id={ order.id }
-          date={ order.saleDate }
+          date={ order.saleDate.slice(0, +'-14').split('-') }
           status={ order.status }
           totalPrice={ order.totalPrice }
           dtTestIdOrder={ `seller_orders__element-order-id-${order.id}` }
