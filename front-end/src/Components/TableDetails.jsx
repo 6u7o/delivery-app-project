@@ -103,7 +103,7 @@ DetailsTable.propTypes = {
   index: PropTypes.number.isRequired,
   userRole: PropTypes.string.isRequired,
   unitPrice: PropTypes.string.isRequired,
-  totalPrice: PropTypes.string.isRequired,
+  totalPrice: PropTypes.number.isRequired,
   deleteUser: PropTypes.bool.isRequired,
   remove: PropTypes.bool.isRequired,
   handleDeleteItemButtonClick: PropTypes.func.isRequired,

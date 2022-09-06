@@ -3,12 +3,15 @@ import { useParams } from 'react-router-dom';
 import Header from '../Components/Header';
 import DetailsTable from '../Components/TableDetails';
 import api from '../services/request';
+import OrderDetails from '../Components/OrderDetails';
 
 function SellerOrdersDetails() {
   const [detailsList, setOrdersList] = useState([]);
   const [userName, setUserName] = useState('');
   const [orderStatus, setOrderStatus] = useState('');
+  const [saleData, setSaleData] = useState('');
   const { id } = useParams();
+
   useEffect(() => {
     const getSellersOrders = async () => {
       const token = localStorage.getItem('token');
@@ -20,7 +23,6 @@ function SellerOrdersDetails() {
       const userNameLocal = localStorage.getItem('userName');
       setUserName(userNameLocal);
       const { data } = await api.get(`sales/${id}`, config);
-      console.log('data.data: ', data.data.status);
       setOrderStatus(data.data.status);
       const products = data.data.products.map((prod) => {
         const obj = {
@@ -33,6 +35,13 @@ function SellerOrdersDetails() {
         return obj;
       });
       setOrdersList(products);
+
+      const formatDate = data.data.saleDate.slice(0, +'-14').split('-');
+
+      setSaleData({
+        saleDate: `${formatDate[2]}/${formatDate[1]}/${formatDate[0]}`,
+        saleStatus: data.data.status,
+      });
     };
     getSellersOrders();
   }, [id, userName]);
@@ -41,7 +50,7 @@ function SellerOrdersDetails() {
 
   const isLeftButtonDisabled = () => orderStatus !== 'Preparando';
 
-  const onClickButton = async () => {
+  const onClickButton = async (idzinho) => {
     const token = localStorage.getItem('token');
     const config = {
       headers: {
@@ -51,12 +60,12 @@ function SellerOrdersDetails() {
     const body = {
       newStatus: 'Preparando',
     };
-    const { data } = await api.patch(`sales/${id}`, body, config);
-    console.log('data do newStatus: ', data);
+    await api.patch(`sales/${idzinho}`, body, config);
     setOrderStatus('Preparando');
   };
 
-  const onClickLeftButton = async () => {
+  const onClickLeftButton = async (idzinho) => {
+    console.log('cliquei1');
     const token = localStorage.getItem('token');
     const config = {
       headers: {
@@ -66,8 +75,7 @@ function SellerOrdersDetails() {
     const body = {
       newStatus: 'Em Trânsito',
     };
-    const { data } = await api.patch(`sales/${id}`, body, config);
-    console.log('data do newStatus: ', data);
+    await api.patch(`sales/${idzinho}`, body, config);
     setOrderStatus('Em Trânsito');
   };
 
@@ -83,28 +91,30 @@ function SellerOrdersDetails() {
         }] }
         userName={ userName }
       />
-      <h1> Sellers ORDERS DETAILS </h1>
-      <h2>
-        {orderStatus}
-      </h2>
-      <button
-        type="button"
-        aria-label="button"
-        disabled={ isReadyButtonDisabled() }
-        onClick={ onClickButton }
-        name="login-button"
-      >
-        PREPARAR PEDIDO
-      </button>
-      <button
-        type="button"
-        aria-label="button"
-        disabled={ isLeftButtonDisabled() }
-        onClick={ onClickLeftButton }
-        name="login-button"
-      >
-        SAIU PRA ENTREGA
-      </button>
+      <OrderDetails
+        dtTestIdOrderId="seller_order_details__element-order-details-label-order-id"
+        dtTestIdSaleDate="seller_order_details__element-order-details-label-order-date"
+        testIdStatus="seller_order_details__element-order-details-label-delivery-status"
+        id={ id }
+        date={ saleData.saleDate }
+        status={ orderStatus }
+        array={ [{
+          label: 'Preparar pedido',
+          aria: 'botão de preparar pedido',
+          name: 'prepare-order-button',
+          dataTestId: 'seller_order_details__button-preparing-check',
+          onclickFunc: onClickButton,
+          btnDisable: isReadyButtonDisabled(),
+        },
+        {
+          label: 'Saiu para entrega',
+          aria: 'botão de saiu para entrega',
+          name: 'set-to-deliver-button',
+          dataTestId: 'seller_order_details__button-dispatch-check',
+          onclickFunc: onClickLeftButton,
+          btnDisable: isLeftButtonDisabled(),
+        }] }
+      />
       <table>
         <thead>
           <tr>

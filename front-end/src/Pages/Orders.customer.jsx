@@ -17,6 +17,7 @@ function CustomerOrders() {
         },
       };
       const { data } = await api.get('/sales', config);
+      // console.log(data.data);
       setOrdersList(data.data);
       setUserName(userNameLocal);
     };
@@ -51,7 +52,7 @@ function CustomerOrders() {
           totalPrice={ order.totalPrice }
           path="customer"
           dtTestIdOrder={ `customer_orders__element-order-id-${order.id}` }
-          dtTestIdOrderStats={ `customer_orders__element-delivery-status${order.id}` }
+          dtTestIdOrderStats={ `customer_orders__element-delivery-status-${order.id}` }
           dtTestIdOrderDate={ `customer_orders__element-order-date-${order.id}` }
           dtTestIdOrderTPrice={ `customer_orders__element-card-price-${order.id}` }
         />
