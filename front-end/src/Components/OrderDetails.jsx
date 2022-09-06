@@ -30,9 +30,9 @@ function OrderDetails({
       <div data-testid={ dtTestIdSaleDate }>
         { date }
       </div>
-      <div data-testid={ testIdStatus }>
+      <h3 data-testid={ testIdStatus }>
         { status }
-      </div>
+      </h3>
       <div>
         {
           array.map((button) => (

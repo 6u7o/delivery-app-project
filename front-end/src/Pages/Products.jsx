@@ -8,7 +8,6 @@ function Products() {
   const [productsList, setProductsList] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
-  // const cart = JSON.parse(localStorage.getItem('carrinho'));
 
   const handleTotalPrice = () => {
     const cart = JSON.parse(localStorage.getItem('carrinho'));
@@ -20,9 +19,7 @@ function Products() {
       try {
         const { data } = await api.get('/customer/products');
         setProductsList(data.data);
-        // console.log(data.data);
       } catch (err) {
-        // CASO O TOKEN ESTEJA INVÁLIDO, A APLICAÇÃO FAZ LOGOUT
         localStorage.clear();
         navigate('/customer/checkout');
       }

@@ -37,13 +37,12 @@ function SellerOrdersDetails() {
       });
       setOrdersList(products);
 
-      const currentCartItens = JSON.parse(localStorage.getItem('carrinho'));
-      setTotal(currentCartItens);
+      setTotal(data.data.totalPrice);
 
-      const formatDate = data.data.saleDate.slice(0, +'-14').split('-');
+      // const formatDate = data.data.saleDate.slice(0, +'-14').split('-');
 
       setSaleData({
-        saleDate: `${formatDate[2]}/${formatDate[1]}/${formatDate[0]}`,
+        saleDate: data.data.saleDate,
         saleStatus: data.data.status,
       });
     };
@@ -163,9 +162,7 @@ function SellerOrdersDetails() {
       <div data-testid="seller_order_details__element-order-total-price">
         <h3>
           {
-            `Total: R$ ${String((total
-              .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
-              .toFixed(2)).replace('.', ',')}`
+            `Total: R$ ${String(total).replace('.', ',')}`
           }
         </h3>
       </div>
