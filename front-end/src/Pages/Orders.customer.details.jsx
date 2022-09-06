@@ -10,6 +10,7 @@ function CustomerOrdersDetails() {
   const [detailsList, setOrdersList] = useState([]);
   const [userName, setUserName] = useState('');
   const [total, setTotal] = useState([]);
+  const [orderStatus, setOrderStatus] = useState('');
   const [saleData, setSaleData] = useState('');
 
   const { id } = useParams();
@@ -35,7 +36,6 @@ function CustomerOrdersDetails() {
         };
         return obj;
       });
-      // console.log('products ', products);
       setOrdersList(products);
 
       const currentCartItens = JSON.parse(localStorage.getItem('carrinho'));
@@ -43,15 +43,29 @@ function CustomerOrdersDetails() {
 
       const formatDate = data.data.saleDate.slice(0, +'-14').split('-');
 
+      setOrderStatus(data.data.status);
       setSaleData({
         sellerName: data.data.seller.name,
         saleDate: `${formatDate[2]}/${formatDate[1]}/${formatDate[0]}`,
-        saleStatus: data.data.status,
+        // saleStatus: data.data.status,
       });
-      // console.log(data.data);
     };
     getOrdersData();
   }, [id, userName]);
+
+  const onClickButton = async (idzinho) => {
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        authorization: token,
+      },
+    };
+    const body = {
+      newStatus: 'Entregue',
+    };
+    await api.patch(`sales/${idzinho}`, body, config);
+    setOrderStatus('Entregue');
+  };
 
   return (
     <div>
@@ -79,12 +93,14 @@ function CustomerOrdersDetails() {
         id={ id }
         seller={ saleData.sellerName }
         date={ saleData.saleDate }
-        status={ saleData.saleStatus }
+        status={ orderStatus }
         array={ [{
           label: 'Marcar como entregue',
           aria: 'botão de marcar pedido como entregue',
           name: 'set-order-as-delivered-button',
           dataTestId: 'customer_order_details__button-delivery-check',
+          onclickFunc: onClickButton,
+          btnDisable: orderStatus === 'Entregue',
         }] }
       />
       <table>

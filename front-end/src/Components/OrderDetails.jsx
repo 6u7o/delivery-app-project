@@ -10,7 +10,6 @@ function OrderDetails({
   dtTestIdOrderId,
   dtTestIdSaleDate,
   testIdStatus,
-  // btnDisable,
 }) {
   return (
     <div>
@@ -56,7 +55,6 @@ function OrderDetails({
 }
 
 OrderDetails.propTypes = {
-  // btnDisable: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   seller: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
