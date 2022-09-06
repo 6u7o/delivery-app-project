@@ -11,9 +11,10 @@ function DetailsTable({
   unitPrice,
   totalPrice,
   deleteUser,
+  index,
   remove,
   handleDeleteItemButtonClick,
-  dtTestIdItemId,
+  dtTestIdItemIndex,
   dtTestIdItemDesc,
   dtTestIdUsermail,
   dtTestIdOrderQtt,
@@ -26,9 +27,9 @@ function DetailsTable({
   return (
     <>
       <td
-        data-testid={ dtTestIdItemId }
+        data-testid={ dtTestIdItemIndex }
       >
-        { id }
+        { index + 1 }
       </td>
       <td
         data-testid={ dtTestIdItemDesc }
@@ -99,13 +100,14 @@ DetailsTable.propTypes = {
   product: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
   userRole: PropTypes.string.isRequired,
   unitPrice: PropTypes.string.isRequired,
   totalPrice: PropTypes.string.isRequired,
   deleteUser: PropTypes.bool.isRequired,
   remove: PropTypes.bool.isRequired,
   handleDeleteItemButtonClick: PropTypes.func.isRequired,
-  dtTestIdItemId: PropTypes.string.isRequired,
+  dtTestIdItemIndex: PropTypes.string.isRequired,
   dtTestIdItemDesc: PropTypes.string.isRequired,
   dtTestIdUsermail: PropTypes.string.isRequired,
   dtTestIdOrderQtt: PropTypes.string.isRequired,

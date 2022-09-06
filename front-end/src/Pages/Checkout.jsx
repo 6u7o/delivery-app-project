@@ -110,7 +110,7 @@ function Checkout() {
               <tr key={ item.id }>
                 <DetailsTable
                   id={ item.id }
-                  dtTestIdItemId={
+                  dtTestIdItemIndex={
                     `customer_checkout__element-order-table-item-number-${index}`
                   }
                   product={ item.product }
@@ -130,6 +130,7 @@ function Checkout() {
                     `customer_checkout__element-order-table-sub-total-${index}`
                   }
                   remove
+                  index={ index }
                   dtTestIdRemoveProductBtn={
                     `customer_checkout__element-order-table-remove-${index}`
                   }
