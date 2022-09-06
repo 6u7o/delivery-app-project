@@ -8,6 +8,7 @@ import OrderDetails from '../Components/OrderDetails';
 function SellerOrdersDetails() {
   const [detailsList, setOrdersList] = useState([]);
   const [userName, setUserName] = useState('');
+  const [total, setTotal] = useState([]);
   const [orderStatus, setOrderStatus] = useState('');
   const [saleData, setSaleData] = useState('');
   const { id } = useParams();
@@ -35,6 +36,9 @@ function SellerOrdersDetails() {
         return obj;
       });
       setOrdersList(products);
+
+      const currentCartItens = JSON.parse(localStorage.getItem('carrinho'));
+      setTotal(currentCartItens);
 
       const formatDate = data.data.saleDate.slice(0, +'-14').split('-');
 
@@ -156,6 +160,15 @@ function SellerOrdersDetails() {
           }
         </tbody>
       </table>
+      <div data-testid="seller_order_details__element-order-total-price">
+        <h3>
+          {
+            `Total: R$ ${String((total
+              .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
+              .toFixed(2)).replace('.', ',')}`
+          }
+        </h3>
+      </div>
     </div>
   );
 }
