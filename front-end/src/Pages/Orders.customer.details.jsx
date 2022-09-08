@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom';
 import Header from '../Components/Header';
 import DetailsTable from '../Components/TableDetails';
 import api from '../services/request';
-// import { getFromLocalStorage } from '../services/handleLocalStorage';
 import OrderDetails from '../Components/OrderDetails';
 
 function CustomerOrdersDetails() {
   const [detailsList, setOrdersList] = useState([]);
   const [userName, setUserName] = useState('');
   const [total, setTotal] = useState([]);
+  const [orderStatus, setOrderStatus] = useState('');
   const [saleData, setSaleData] = useState('');
 
   const { id } = useParams();
@@ -25,6 +25,7 @@ function CustomerOrdersDetails() {
       const userNameLocal = localStorage.getItem('userName');
       setUserName(userNameLocal);
       const { data } = await api.get(`sales/${id}`, config);
+      console.log('data: ', data);
       const products = data.data.products.map((prod) => {
         const obj = {
           id: prod.id,
@@ -35,23 +36,35 @@ function CustomerOrdersDetails() {
         };
         return obj;
       });
-      // console.log('products ', products);
       setOrdersList(products);
 
-      const currentCartItens = JSON.parse(localStorage.getItem('carrinho'));
-      setTotal(currentCartItens);
+      setTotal(data.data.totalPrice);
 
       const formatDate = data.data.saleDate.slice(0, +'-14').split('-');
 
+      setOrderStatus(data.data.status);
       setSaleData({
         sellerName: data.data.seller.name,
         saleDate: `${formatDate[2]}/${formatDate[1]}/${formatDate[0]}`,
-        saleStatus: data.data.status,
+        // saleStatus: data.data.status,
       });
-      // console.log(data.data);
     };
     getOrdersData();
   }, [id, userName]);
+
+  const onClickButton = async (idzinho) => {
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        authorization: token,
+      },
+    };
+    const body = {
+      newStatus: 'Entregue',
+    };
+    await api.patch(`sales/${idzinho}`, body, config);
+    setOrderStatus('Entregue');
+  };
 
   return (
     <div>
@@ -79,12 +92,14 @@ function CustomerOrdersDetails() {
         id={ id }
         seller={ saleData.sellerName }
         date={ saleData.saleDate }
-        status={ saleData.saleStatus }
+        status={ orderStatus }
         array={ [{
           label: 'Marcar como entregue',
           aria: 'botão de marcar pedido como entregue',
           name: 'set-order-as-delivered-button',
           dataTestId: 'customer_order_details__button-delivery-check',
+          onclickFunc: onClickButton,
+          btnDisable: orderStatus !== 'Em Trânsito',
         }] }
       />
       <table>
@@ -129,12 +144,10 @@ function CustomerOrdersDetails() {
           }
         </tbody>
       </table>
-      <div data-testid="customer_checkout__element-order-total-price">
-        <h3>
+      <div>
+        <h3 data-testid="customer_checkout__element-order-total-price">
           {
-            `Total: R$ ${String((total
-              .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
-              .toFixed(2)).replace('.', ',')}`
+            `Total: R$ ${String(total)?.replace('.', ',')}`
           }
         </h3>
       </div>

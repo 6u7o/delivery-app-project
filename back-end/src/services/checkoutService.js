@@ -4,10 +4,10 @@ const { Sales, SalesProducts, sequelize } = require('../database/models');
 const createSale = async (saleInfo) => {
   const transaction = await sequelize.transaction();
   try {
-    const newSale = await Sales.create(saleInfo, {
+    const newSale = await Sales.create({ ...saleInfo, saleDate: Date.now() }, {
       raw: true,
       transaction,
-      fields: ['sellerId', 'totalPrice', 'deliveryAddress', 'deliveryNumber', 'userId'],
+      fields: ['sellerId', 'totalPrice', 'deliveryAddress', 'deliveryNumber', 'userId', 'saleDate'],
     });
 
     const formatedProducts = saleInfo.products.map(({ id, quantity }) => (

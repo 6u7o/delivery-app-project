@@ -10,7 +10,6 @@ function OrderDetails({
   dtTestIdOrderId,
   dtTestIdSaleDate,
   testIdStatus,
-  // btnDisable,
 }) {
   return (
     <div>
@@ -31,9 +30,9 @@ function OrderDetails({
       <div data-testid={ dtTestIdSaleDate }>
         { date }
       </div>
-      <div data-testid={ testIdStatus }>
+      <h3 data-testid={ testIdStatus }>
         { status }
-      </div>
+      </h3>
       <div>
         {
           array.map((button) => (
@@ -56,7 +55,6 @@ function OrderDetails({
 }
 
 OrderDetails.propTypes = {
-  // btnDisable: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   seller: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
