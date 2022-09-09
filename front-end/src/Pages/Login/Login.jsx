@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from '../../services/request';
 import { changeEmail } from '../../Redux/slicers/user.slicer';
 import * as C from './styles';
+import logo from '../../images/delivery-man.jpg';
 
 const COSTUMER_HOMEPAGE = '/customer/products';
 
@@ -60,8 +61,11 @@ function Login() {
   return (
     <C.Container>
       <C.Form>
+        <img src={ logo } alt="logo-delivery-man" />
         <label htmlFor="email">
           <input
+            placeholder="seu email"
+            placeholderTextColor="#000"
             type="text"
             aria-label="email"
             onChange={ ({ target }) => setEmail(target.value) }
@@ -71,6 +75,8 @@ function Login() {
         </label>
         <label htmlFor="password">
           <input
+            placeholder="sua senha"
+            placeholderTextColor="#000"
             type="password"
             aria-label="password"
             onChange={ ({ target }) => setPassword(target.value) }
@@ -102,7 +108,7 @@ function Login() {
             data-testid="common_login__button-register"
             name="signup-button"
           >
-            Ainda não tenho conta
+            CADASTRO
           </button>
         </Link>
       </C.Form>

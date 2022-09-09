@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Form = styled.form`
-  background-color: ${({ theme }) => theme.colors.primary.white};
+  background-color: white;
   box-shadow: 18px 15px 26px 3px rgba(150, 150, 150, 0.41);
   width: 380px;
   height: 380px;
@@ -21,6 +21,12 @@ const Form = styled.form`
   align-items: center;
   /* border: 1px solid; */
   border-radius: 7px;
+
+  img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 30px;
+  }
 
   button {
     background-color: ${({ theme }) => theme.colors.primary.buttons};
@@ -33,7 +39,7 @@ const Form = styled.form`
     &.login-button {
       margin-top: 50px;
     }
-    
+
     &.register-button {
       margin-top: 5px;
     }
@@ -52,10 +58,26 @@ const Form = styled.form`
   input {
     width: 175px;
     height: 35px;
-    border: 1px solid;
-    border-radius: 5px;
-    /* box-shadow: 10px 15px 12px -11px rgba(150, 150, 150, 0.4); */
+    background-color: transparent;
+    border: 1px solid #d6d6d6;
+    border-radius: 7px;
+    padding-left: 5px;
+    outline: none;
     margin-top: 5px;
+
+    ::placeholder {
+      color: #d6d6d6;
+    }
+
+    :hover {
+      border: 1px solid ${({ theme }) => theme.colors.primary.buttons};
+      color: ${({ theme }) => theme.colors.primary.headerAndFooter};
+    }
+
+    :focus {
+      border: 2px solid ${({ theme }) => theme.colors.primary.buttons};
+      color: ${({ theme }) => theme.colors.primary.headerAndFooter};
+    }
   }
 `;
 
