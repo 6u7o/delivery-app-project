@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../services/request';
@@ -55,6 +56,7 @@ function Login() {
       if (loginData.data.role === 'seller') navigate('/seller/orders');
     } catch (err) {
       setError(true);
+      toast.error('email ou senha inválidos');
     }
   };
 
@@ -65,7 +67,6 @@ function Login() {
         <label htmlFor="email">
           <input
             placeholder="seu email"
-            placeholderTextColor="#000"
             type="text"
             aria-label="email"
             onChange={ ({ target }) => setEmail(target.value) }
@@ -76,7 +77,6 @@ function Login() {
         <label htmlFor="password">
           <input
             placeholder="sua senha"
-            placeholderTextColor="#000"
             type="password"
             aria-label="password"
             onChange={ ({ target }) => setPassword(target.value) }
@@ -112,6 +112,7 @@ function Login() {
           </button>
         </Link>
       </C.Form>
+      <Toaster />
     </C.Container>
   );
 }
