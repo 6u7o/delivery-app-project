@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../services/request';
-import { changeEmail } from '../Redux/slicers/user.slicer';
+import api from '../../services/request';
+import { changeEmail } from '../../Redux/slicers/user.slicer';
+import * as C from './styles';
+import logo from '../../images/delivery-man.jpg';
 
 const COSTUMER_HOMEPAGE = '/customer/products';
 
@@ -53,14 +56,17 @@ function Login() {
       if (loginData.data.role === 'seller') navigate('/seller/orders');
     } catch (err) {
       setError(true);
+      toast.error('email ou senha inválidos');
     }
   };
 
   return (
-    <div>
-      <form>
+    <C.Container>
+      <C.Form>
+        <img src={ logo } alt="logo-delivery-man" />
         <label htmlFor="email">
           <input
+            placeholder="seu email"
             type="text"
             aria-label="email"
             onChange={ ({ target }) => setEmail(target.value) }
@@ -70,6 +76,7 @@ function Login() {
         </label>
         <label htmlFor="password">
           <input
+            placeholder="sua senha"
             type="password"
             aria-label="password"
             onChange={ ({ target }) => setPassword(target.value) }
@@ -83,6 +90,7 @@ function Login() {
             email ou senha inválidos
           </span>)}
         <button
+          className="login-button"
           type="submit"
           aria-label="login-button"
           disabled={ !isButtonDisabled() }
@@ -94,16 +102,18 @@ function Login() {
         </button>
         <Link to="/register">
           <button
+            className="register-button"
             type="button"
             aria-label="signup-button"
             data-testid="common_login__button-register"
             name="signup-button"
           >
-            Ainda não tenho conta
+            CADASTRO
           </button>
         </Link>
-      </form>
-    </div>
+      </C.Form>
+      <Toaster />
+    </C.Container>
   );
 }
 
