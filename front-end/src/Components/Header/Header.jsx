@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-// import Button from './Header.button';
+import Container from './styles';
 
 function Header({ array, userName }) {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <div>
+    <Container>
+      <div className="header-buttons">
         {
           array.map((button) => (
             <button
@@ -23,6 +23,8 @@ function Header({ array, userName }) {
             </button>
           ))
         }
+      </div>
+      <div className="user-logout">
         <h3
           data-testid="customer_products__element-navbar-user-full-name"
         >
@@ -38,7 +40,7 @@ function Header({ array, userName }) {
           SAIR
         </button>
       </div>
-    </div>
+    </Container>
   );
 }
 
