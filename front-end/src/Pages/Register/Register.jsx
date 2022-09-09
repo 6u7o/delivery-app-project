@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/request';
 import * as C from './styles';
@@ -43,9 +44,8 @@ function Register() {
         navigate('/customer/products');
       }
     } catch (err) {
-      console.log('error:', err.message);
       setError(true);
-      // console.log(err);
+      toast.error('dados inválidos');
     }
   };
 
@@ -104,6 +104,7 @@ function Register() {
           CADASTRAR
         </button>
       </C.Form>
+      <Toaster />
     </C.Container>
   );
 }
