@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Components/Header';
-import CardOrder from '../Components/OrderCard';
+import CardOrder from '../Components/OrderCard/OrderCard';
 import api from '../services/request';
 
 function CustomerOrders() {

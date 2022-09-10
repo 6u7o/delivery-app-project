@@ -5,7 +5,7 @@ export default {
       background: '#ebebeb',
       headerAndFooter: '#141414',
       buttons: '#03c966',
-      backgroundCard: '#daffd6',
+      backgroundCard: '#F3FFDA',
       white: '#fafafa',
     },
   },

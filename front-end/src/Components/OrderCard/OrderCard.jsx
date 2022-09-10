@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import * as C from './styles';
 
 function CardOrder(
   { id,
@@ -17,44 +18,44 @@ function CardOrder(
   },
 ) {
   return (
-    <Link to={ `/${path}/orders/${id}` }>
-      <div>
-
-        <div
+    <C.Card>
+      <Link to={ `/${path}/orders/${id}` }>
+        <C.Order
           data-testid={ dtTestIdOrder }
         >
-          <h3>
-            Pedido
+          <h4>
+            Pedido: 0
             { id }
-          </h3>
-        </div>
+          </h4>
+        </C.Order>
+      </Link>
+      <C.Status
+        data-testid={ dtTestIdOrderStats }
+      >
+        <h3>{ status }</h3>
+      </C.Status>
 
-        <div
-          data-testid={ dtTestIdOrderStats }
+      <C.Date>
+        <C.TotalPrice
+          data-testid={ dtTestIdOrderDate }
         >
-          <h3>{ status }</h3>
-        </div>
-
-        <div>
-          <h3
-            data-testid={ dtTestIdOrderDate }
+          { `${date[2]}/${date[1]}/${date[0]}` }
+        </C.TotalPrice>
+        <h3
+          data-testid={ dtTestIdOrderTPrice }
+        >
+          R$:
+          {' '}
+          { String(totalPrice).replace('.', ',') }
+        </h3>
+        {orderAdress && (
+          <C.Adress
+            data-testid={ dtTestIdOrderAdress }
           >
-            { `${date[2]}/${date[1]}/${date[0]}` }
-          </h3>
-          <h3
-            data-testid={ dtTestIdOrderTPrice }
-          >
-            { String(totalPrice).replace('.', ',') }
-          </h3>
-          {orderAdress && (
-            <h6
-              data-testid={ dtTestIdOrderAdress }
-            >
-              { orderAdress }
-            </h6>)}
-        </div>
-      </div>
-    </Link>
+            { orderAdress }
+          </C.Adress>)}
+      </C.Date>
+    </C.Card>
   );
 }
 

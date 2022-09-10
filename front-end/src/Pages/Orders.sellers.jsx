@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
-import CardOrder from '../Components/OrderCard';
+import CardOrder from '../Components/OrderCard/OrderCard';
 import api from '../services/request';
 
 function SellerOrdersDetails() {
   const [ordersList, setOrdersList] = useState([]);
+  const [userName, setUserName] = useState('');
   // const { id } = useParams;
   useEffect(() => {
     const getSellersOrders = async () => {
+      const user = localStorage.getItem('userName');
+      setUserName(user);
       const token = localStorage.getItem('token');
       const config = {
         headers: {
@@ -30,7 +33,7 @@ function SellerOrdersDetails() {
           name: 'seller-orders-button',
           dataTestId: 'customer_products__element-navbar-link-orders',
         }] }
-        userName={ api /* informar o caminho para pegar o userName */ }
+        userName={ userName }
       />
       <h1> Sellers ORDERS </h1>
       { ordersList?.map((order) => (
