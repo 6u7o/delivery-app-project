@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header/Header';
 import api from '../services/request';
-import CardProduct from '../Components/ProductCard';
+import CardProduct from '../Components/ProductCard/ProductCard';
 
 function Products() {
   const [productsList, setProductsList] = useState([]);

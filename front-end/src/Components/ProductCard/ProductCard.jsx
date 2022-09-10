@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { sendToLocalStorage, getFromLocalStorage } from '../services/handleLocalStorage';
+import {
+  sendToLocalStorage,
+  getFromLocalStorage,
+} from '../../services/handleLocalStorage';
+import * as C from './styles';
 
 function CardProduct({ price, image, name, id, handleTotalPrice }) {
   const [prodQuantity, setProdQuantity] = useState(0);
@@ -18,18 +22,21 @@ function CardProduct({ price, image, name, id, handleTotalPrice }) {
     setProdQuantity(prodQuantity + 1);
 
     const storageData = getFromLocalStorage('carrinho');
-    // console.log(storageData);
 
     const productExists = storageData?.find((el) => el.id === id);
     if (productExists) {
       productExists.quantity += 1;
-      productExists.totalPrice = (Number(price) * productExists.quantity).toFixed(2);
+      productExists.totalPrice = (
+        Number(price) * productExists.quantity
+      ).toFixed(2);
       const newStorageData = storageData.filter((item) => item.id !== id);
       sendToLocalStorage('carrinho', [...newStorageData, { ...productExists }]);
     } else {
       const newStorageData = storageData.filter((item) => item.id !== id);
-      sendToLocalStorage('carrinho', [...newStorageData,
-        { id, unitPrice: price, quantity: 1, product: name, totalPrice: price }]);
+      sendToLocalStorage('carrinho', [
+        ...newStorageData,
+        { id, unitPrice: price, quantity: 1, product: name, totalPrice: price },
+      ]);
     }
     handleTotalPrice();
   };
@@ -40,14 +47,15 @@ function CardProduct({ price, image, name, id, handleTotalPrice }) {
     }
 
     const storageData = getFromLocalStorage('carrinho');
-    // console.log(storageData);
 
     const productExists = storageData?.find((el) => el.id === id);
 
     if (productExists && productExists.quantity > 0) {
       setProdQuantity(prodQuantity - 1);
       productExists.quantity -= 1;
-      productExists.totalPrice = (Number(price) * productExists.quantity).toFixed(2);
+      productExists.totalPrice = (
+        Number(price) * productExists.quantity
+      ).toFixed(2);
       const newStorageData = storageData.filter((item) => item.id !== id);
       sendToLocalStorage('carrinho', [...newStorageData, { ...productExists }]);
     }
@@ -67,19 +75,23 @@ function CardProduct({ price, image, name, id, handleTotalPrice }) {
 
     if (productExists) {
       productExists.quantity = target.value;
-      productExists.totalPrice = (Number(price) * productExists.quantity).toFixed(2);
+      productExists.totalPrice = (
+        Number(price) * productExists.quantity
+      ).toFixed(2);
       const newStorageData = storageData.filter((item) => item.id !== id);
       sendToLocalStorage('carrinho', [...newStorageData, { ...productExists }]);
     } else {
       const newStorageData = storageData.filter((item) => item.id !== id);
-      sendToLocalStorage('carrinho', [...newStorageData,
+      sendToLocalStorage('carrinho', [
+        ...newStorageData,
         {
           id,
           unitPrice: price,
           quantity: target.value,
           product: name,
           totalPrice: price * target.value,
-        }]);
+        },
+      ]);
     }
 
     if (target.value === '0') {
@@ -90,23 +102,21 @@ function CardProduct({ price, image, name, id, handleTotalPrice }) {
   };
 
   return (
-    <div>
-      <span
-        data-testid={ `customer_products__element-card-price-${id}` }
-      >
-        { String(price).replace('.', ',') }
-      </span>
+    <C.Card>
+      <h5 data-testid={ `customer_products__element-card-title-${id}` }>
+        {name}
+      </h5>
+      <h4 data-testid={ `customer_products__element-card-price-${id}` }>
+        R$:
+        {' '}
+        {String(price).replace('.', ',')}
+      </h4>
       <img
         src={ image }
         alt="card-description"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
-      <form>
-        <span
-          data-testid={ `customer_products__element-card-title-${id}` }
-        >
-          { name }
-        </span>
+      <C.Form>
         <button
           type="button"
           aria-label="decreaseQuantity"
@@ -135,8 +145,8 @@ function CardProduct({ price, image, name, id, handleTotalPrice }) {
         >
           +
         </button>
-      </form>
-    </div>
+      </C.Form>
+    </C.Card>
   );
 }
 
