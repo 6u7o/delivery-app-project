@@ -13,7 +13,7 @@ import CustomerOrdersDetails from './Pages/Orders.customer.details';
 import CustomerOrders from './Pages/Orders.customer';
 import SellerOrdersDetails from './Pages/Orders.sellers.details';
 import SellerOrders from './Pages/Orders.sellers';
-import Products from './Pages/Products';
+import Products from './Pages/Products/Products';
 
 function App() {
   return (

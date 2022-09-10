@@ -40,6 +40,8 @@ const Container = styled.div`
     height: 35px;
     border: none;
     border-radius: 5px;
+    font-size: 12px;
+    font-weight: 900;
 
     :hover {
       background-color: #028d47;

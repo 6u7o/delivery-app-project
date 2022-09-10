@@ -18,8 +18,8 @@ const Card = styled.div`
   }
 
   img {
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
   }
 `;
 

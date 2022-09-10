@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../Components/Header/Header';
-import api from '../services/request';
-import CardProduct from '../Components/ProductCard/ProductCard';
+import Header from '../../Components/Header/Header';
+import api from '../../services/request';
+import CardProduct from '../../Components/ProductCard/ProductCard';
+import { Container } from './styles';
 
 function Products() {
   const [productsList, setProductsList] = useState([]);
@@ -47,35 +48,38 @@ function Products() {
         }] }
         userName={ localStorage.getItem('userName') }
       />
-      <h1> PRODUCTS </h1>
-      { productsList.map((product) => (
-        <CardProduct
-          key={ product.name }
-          price={ product.price }
-          image={ product.urlImage }
-          name={ product.name }
-          id={ product.id }
-          handleTotalPrice={ handleTotalPrice }
-        />
-      )) }
-      <div>
-        <button
-          type="button"
-          onClick={ () => navigate('/customer/checkout') }
-          disabled={
-            !(cartItems.reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
-          }
-          data-testid="customer_products__button-cart"
-        >
-          <span data-testid="customer_products__checkout-bottom-value">
-            {
-              `Ver Carrinho: R$ ${String((cartItems
+      <Container>
+        { productsList.map((product) => (
+          <CardProduct
+            key={ product.name }
+            price={ product.price }
+            image={ product.urlImage }
+            name={ product.name }
+            id={ product.id }
+            handleTotalPrice={ handleTotalPrice }
+          />
+        )) }
+        <div>
+          <button
+            className="cart-button"
+            type="button"
+            onClick={ () => navigate('/customer/checkout') }
+            disabled={
+              !(cartItems
                 .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
-                .toFixed(2)).replace('.', ',')}`
             }
-          </span>
-        </button>
-      </div>
+            data-testid="customer_products__button-cart"
+          >
+            <span data-testid="customer_products__checkout-bottom-value">
+              {
+                `Ver Carrinho: R$ ${String((cartItems
+                  .reduce((acc, { totalPrice }) => acc + parseFloat(totalPrice), 0))
+                  .toFixed(2)).replace('.', ',')}`
+              }
+            </span>
+          </button>
+        </div>
+      </Container>
     </div>
   );
 }
