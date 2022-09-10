@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../Components/Header';
 import CardOrder from '../Components/OrderCard/OrderCard';
+
+import Header from '../Components/Header/Header';
+
 import api from '../services/request';
 
 function SellerOrdersDetails() {
   const [ordersList, setOrdersList] = useState([]);
   const [userName, setUserName] = useState('');
-  // const { id } = useParams;
   useEffect(() => {
     const getSellersOrders = async () => {
       const user = localStorage.getItem('userName');
@@ -35,7 +36,6 @@ function SellerOrdersDetails() {
         }] }
         userName={ userName }
       />
-      <h1> Sellers ORDERS </h1>
       { ordersList?.map((order) => (
         <CardOrder
           key={ order.id }
