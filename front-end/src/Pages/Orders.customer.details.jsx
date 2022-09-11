@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Header from '../Components/Header/Header';
 import DetailsTable from '../Components/TableDetails';
 import api from '../services/request';
-import OrderDetails from '../Components/OrderDetails';
+import OrderDetails from '../Components/OrderDetails/OrderDetails';
 
 function CustomerOrdersDetails() {
   const [detailsList, setOrdersList] = useState([]);

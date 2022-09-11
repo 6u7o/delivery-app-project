@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Container } from './styles';
 
 function OrderDetails({
   id,
@@ -12,8 +13,7 @@ function OrderDetails({
   testIdStatus,
 }) {
   return (
-    <div>
-      <h1> Detalhe do pedido </h1>
+    <Container>
       <div data-testid={ dtTestIdOrderId }>
         { `PEDIDO: ${id}` }
       </div>
@@ -50,7 +50,7 @@ function OrderDetails({
           ))
         }
       </div>
-    </div>
+    </Container>
   );
 }
 
