@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 const Card = styled.div`
   background-color: white;
-  width: 200px;
-  height: 250px;
+  width: 300px;
+  height: 400px;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -12,14 +12,14 @@ const Card = styled.div`
   margin-bottom: 30px;
   margin-top: 15px;
   box-shadow: 10px 15px 12px -11px rgba(150, 150, 150, 0.4);
-  
+
   h5 {
     margin-top: 5px;
   }
 
   img {
-    width: 140px;
-    height: 140px;
+    width: 250px;
+    height: 250px;
   }
 `;
 
@@ -31,18 +31,18 @@ const Form = styled.form`
   border-bottom-right-radius: 7px;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 
   input {
-    width: 50px;
-    height: 35px;
+    width: 75px;
+    height: 50px;
     background-color: white;
     border: 1px solid #d6d6d6;
-    border-radius: 7px;
     padding-left: 5px;
     outline: none;
     text-align: center;
+    font-size: 17px;
     font-weight: 700;
 
     ::placeholder {
@@ -58,14 +58,22 @@ const Form = styled.form`
       border: 2px solid ${({ theme }) => theme.colors.primary.buttons};
       color: ${({ theme }) => theme.colors.primary.headerAndFooter};
     }
+
+    ::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    ::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 
   button {
     background-color: ${({ theme }) => theme.colors.primary.buttons};
-    width: 30px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     border: none;
-    border-radius: 5px;
     box-shadow: 10px 15px 12px -11px rgba(150, 150, 150, 0.4);
     font-size: 20px;
     font-weight: 900;
@@ -87,6 +95,16 @@ const Form = styled.form`
       background-color: ${({ theme }) => theme.colors.primary.backgroundCard};
       color: #00000040;
       cursor: not-allowed;
+    }
+
+    &.increase-button {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    &.decrease-button {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
     }
   }
 `;

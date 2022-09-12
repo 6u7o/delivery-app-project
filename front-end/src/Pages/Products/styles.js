@@ -10,7 +10,7 @@ const Container = styled.div`
   button {
     &.cart-button {
     background-color: ${({ theme }) => theme.colors.primary.buttons};
-    width: 200px;
+    width: 300px;
     height: 35px;
     border: none;
     border-radius: 5px;

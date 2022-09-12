@@ -29,7 +29,7 @@ function Manage() {
           name: 'manage-button',
           dataTestId: 'customer_products__element-navbar-link-orders',
         }] }
-        userName={ api /* informar o caminho para pegar o userName */ }
+        /* userName={  api informar o caminho para pegar o userName  } */
       />
       <h1> ADMIN / MANAGE </h1>
       <table>

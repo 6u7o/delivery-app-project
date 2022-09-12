@@ -135,33 +135,37 @@ function SellerOrdersDetails() {
               <tr key={ index }>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-item-number-${index}`
+                    `seller_order_details__element-order-table-item-number-${index}`
                   }
                 >
                   {index + 1}
                 </td>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-name-${index} `
+                    `seller_order_details__element-order-table-name-${index} `
                   }
                 >
                   {item.name}
                 </td>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-quantity-${index}`
+                    `seller_order_details__element-order-table-quantity-${index}`
                   }
                 >
                   {item.quantity}
                 </td>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-sub-total-${index}`
+                    `seller_order_details__element-order-table-unit-price-${index}`
                   }
                 >
                   {`R$: ${String(item.unitPrice).replace('.', ',')}`}
                 </td>
-                <td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-sub-total-${index}`
+                  }
+                >
                   {`R$: ${String(item.totalPrice).replace('.', ',')}`}
                 </td>
               </tr>

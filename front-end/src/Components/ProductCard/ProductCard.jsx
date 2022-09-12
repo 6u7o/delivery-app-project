@@ -118,6 +118,7 @@ function CardProduct({ price, image, name, id, handleTotalPrice }) {
       />
       <C.Form>
         <button
+          className="decrease-button"
           type="button"
           aria-label="decreaseQuantity"
           onClick={ handleDecrease }
@@ -137,6 +138,7 @@ function CardProduct({ price, image, name, id, handleTotalPrice }) {
           />
         </label>
         <button
+          className="increase-button"
           type="button"
           aria-label="increaseQuantity"
           onClick={ handleIncrease }
