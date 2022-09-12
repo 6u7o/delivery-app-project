@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../Components/Header/Header';
-import DetailsTable from '../Components/TableDetails';
+import DetailsTable from '../Components/TableDetails/TableDetails';
 // import api from '../services/request';
 
 function Manage() {

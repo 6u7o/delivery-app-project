@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../Components/Header/Header';
-import DetailsTable from '../Components/TableDetails';
-import api from '../services/request';
-import OrderDetails from '../Components/OrderDetails/OrderDetails';
+import Header from '../../Components/Header/Header';
+// import DetailsTable from '../Components/TableDetails/TableDetails';
+import api from '../../services/request';
+import OrderDetails from '../../Components/OrderDetails/OrderDetails';
+import * as C from './styles';
 
 function SellerOrdersDetails() {
   const [detailsList, setOrdersList] = useState([]);
@@ -118,7 +119,7 @@ function SellerOrdersDetails() {
           btnDisable: isLeftButtonDisabled(),
         }] }
       />
-      <table>
+      <C.Table>
         <thead>
           <tr>
             <th>Item</th>
@@ -130,42 +131,51 @@ function SellerOrdersDetails() {
         </thead>
         <tbody>
           {
-            detailsList?.map((order, index) => (
-              <tr key={ order.id }>
-                <DetailsTable
-                  id={ order.id }
-                  dtTestIdItemId={
-                    `seller_order_details__element-order-table-item-number-${index}`
+            detailsList?.map((item, index) => (
+              <tr key={ index }>
+                <td
+                  data-testid={
+                    `customer_order_details__element-order-table-item-number-${index}`
                   }
-                  product={ order.name }
-                  dtTestIdItemDesc={
-                    `seller_order_details__element-order-table-name-${index}`
+                >
+                  {index + 1}
+                </td>
+                <td
+                  data-testid={
+                    `customer_order_details__element-order-table-name-${index} `
                   }
-                  quantity={ order.quantity }
-                  dtTestIdOrderQtt={
-                    `seller_order_details__element-order-table-quantity-${index}`
+                >
+                  {item.name}
+                </td>
+                <td
+                  data-testid={
+                    `customer_order_details__element-order-table-quantity-${index}`
                   }
-                  unitPrice={ order.unitPrice }
-                  dtTestIdUnitPrice={
-                    `seller_order_details__element-order-table-unit-price-${index}`
+                >
+                  {item.quantity}
+                </td>
+                <td
+                  data-testid={
+                    `customer_order_details__element-order-table-sub-total-${index}`
                   }
-                  totalPrice={ order.totalPrice }
-                  dtTestIdTotalPrice={
-                    `seller_order_details__element-order-table-sub-total-${index}`
-                  }
-                />
+                >
+                  {`R$: ${String(item.unitPrice).replace('.', ',')}`}
+                </td>
+                <td>
+                  {`R$: ${String(item.totalPrice).replace('.', ',')}`}
+                </td>
               </tr>
             ))
           }
         </tbody>
-      </table>
-      <div>
+      </C.Table>
+      <C.Content>
         <h3 data-testid="seller_order_details__element-order-total-price">
           {
             `Total: R$ ${String(total).replace('.', ',')}`
           }
         </h3>
-      </div>
+      </C.Content>
     </div>
   );
 }

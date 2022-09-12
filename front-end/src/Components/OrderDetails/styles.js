@@ -19,6 +19,7 @@ const Container = styled.div`
     height: 35px;
     border: none;
     border-radius: 5px;
+    margin-right: 4px;
     box-shadow: 10px 15px 12px -11px rgba(150, 150, 150, 0.4);
     font-size: 15px;
     font-weight: 900;

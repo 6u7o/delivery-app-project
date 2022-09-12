@@ -9,8 +9,8 @@ function OrderDetails({
   status,
   array,
   dtTestIdOrderId,
-  dtTestIdSaleDate,
-  testIdStatus,
+  testIdSaleDate,
+  testIdStat,
 }) {
   return (
     <Container>
@@ -27,10 +27,10 @@ function OrderDetails({
         </div>
       )
       }
-      <div data-testid={ dtTestIdSaleDate }>
+      <div data-testid={ testIdSaleDate }>
         { date }
       </div>
-      <h3 data-testid={ testIdStatus }>
+      <h3 data-testid={ testIdStat }>
         { status }
       </h3>
       <div>
@@ -60,8 +60,8 @@ OrderDetails.propTypes = {
   date: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   dtTestIdOrderId: PropTypes.string.isRequired,
-  dtTestIdSaleDate: PropTypes.string.isRequired,
-  testIdStatus: PropTypes.string.isRequired,
+  testIdSaleDate: PropTypes.string.isRequired,
+  testIdStat: PropTypes.string.isRequired,
   array: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,

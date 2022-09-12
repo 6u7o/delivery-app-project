@@ -9,9 +9,9 @@ import Login from './Pages/Login/Login';
 import Register from './Pages/Register';
 import Checkout from './Pages/Checkout';
 import Manage from './Pages/Manage';
-import CustomerOrdersDetails from './Pages/Orders.customer.details';
+import CustomerOrdersDetails from './Pages/CustomerOrderDetails/Orders.customer.details';
 import CustomerOrders from './Pages/Orders.customer';
-import SellerOrdersDetails from './Pages/Orders.sellers.details';
+import SellerOrdersDetails from './Pages/SellerOrderDetails/Orders.sellers.details';
 import SellerOrders from './Pages/Orders.sellers';
 import Products from './Pages/Products/Products';
 

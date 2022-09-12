@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../Components/Header/Header';
-import DetailsTable from '../Components/TableDetails';
-import api from '../services/request';
-import OrderDetails from '../Components/OrderDetails/OrderDetails';
+import Header from '../../Components/Header/Header';
+// import DetailsTable from '../Components/TableDetails/TableDetails';
+import api from '../../services/request';
+import OrderDetails from '../../Components/OrderDetails/OrderDetails';
+import * as C from './styles';
 
 function CustomerOrdersDetails() {
   const [detailsList, setOrdersList] = useState([]);
@@ -85,24 +86,26 @@ function CustomerOrdersDetails() {
         }] }
         userName={ userName }
       />
-      <OrderDetails
-        dtTestIdOrderId="customer_order_details__element-order-details-label-order-id"
-        dtTestIdSaleDate="customer_order_details__element-order-details-label-order-date"
-        testIdStatus="customer_order_details__element-order-details-label-delivery-status"
-        id={ id }
-        seller={ saleData.sellerName }
-        date={ saleData.saleDate }
-        status={ orderStatus }
-        array={ [{
-          label: 'Marcar como entregue',
-          aria: 'botão de marcar pedido como entregue',
-          name: 'set-order-as-delivered-button',
-          dataTestId: 'customer_order_details__button-delivery-check',
-          onclickFunc: onClickButton,
-          btnDisable: orderStatus !== 'Em Trânsito',
-        }] }
-      />
-      <table>
+      <div>
+        <OrderDetails
+          dtTestIdOrderId="customer_order_details__element-order-details-label-order-id"
+          testIdSaleDate="customer_order_details__element-order-details-label-order-date"
+          testIdStat="customer_order_details__element-order-details-label-delivery-status"
+          id={ id }
+          seller={ saleData.sellerName }
+          date={ saleData.saleDate }
+          status={ orderStatus }
+          array={ [{
+            label: 'Marcar como entregue',
+            aria: 'botão de marcar pedido como entregue',
+            name: 'set-order-as-delivered-button',
+            dataTestId: 'customer_order_details__button-delivery-check',
+            onclickFunc: onClickButton,
+            btnDisable: orderStatus !== 'Em Trânsito',
+          }] }
+        />
+      </div>
+      <C.Table>
         <thead>
           <tr>
             <th>Item</th>
@@ -115,42 +118,50 @@ function CustomerOrdersDetails() {
         <tbody>
           {
             detailsList?.map((item, index) => (
-              <tr key={ item.id }>
-                <DetailsTable
-                  id={ item.id }
-                  dtTestIdItemId={
+              <tr key={ index }>
+                <td
+                  data-testid={
                     `customer_order_details__element-order-table-item-number-${index}`
                   }
-                  product={ item.name }
-                  dtTestIdItemDesc={
-                    `customer_order_details__element-order-table-name-${index}`
+                >
+                  {index + 1}
+                </td>
+                <td
+                  data-testid={
+                    `customer_order_details__element-order-table-name-${index} `
                   }
-                  quantity={ item.quantity }
-                  dtTestIdOrderQtt={
+                >
+                  {item.name}
+                </td>
+                <td
+                  data-testid={
                     `customer_order_details__element-order-table-quantity-${index}`
                   }
-                  unitPrice={ item.unitPrice }
-                  dtTestIdUnitPrice={
+                >
+                  {item.quantity}
+                </td>
+                <td
+                  data-testid={
                     `customer_order_details__element-order-table-sub-total-${index}`
                   }
-                  index={ index }
-                  totalPrice={ item.totalPrice }
-                  dtTestIdTotalPrice={
-                    `customer_order_details__element-order-total-price-${index}`
-                  }
-                />
+                >
+                  {String(item.unitPrice).replace('.', ',')}
+                </td>
+                <td>
+                  {String(item.totalPrice).replace('.', ',')}
+                </td>
               </tr>
             ))
           }
         </tbody>
-      </table>
-      <div>
+      </C.Table>
+      <C.Content>
         <h3 data-testid="customer_checkout__element-order-total-price">
           {
             `Total: R$ ${String(total)?.replace('.', ',')}`
           }
         </h3>
-      </div>
+      </C.Content>
     </div>
   );
 }
