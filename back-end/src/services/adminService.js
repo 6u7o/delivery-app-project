@@ -18,22 +18,24 @@ const newUser = async (userData) => {
 
   const { email, name, role, id } = userDbData;
 
-
   return { id, email, name, role };
 };
 
-const getAllUsers = async () => await Users.findAll();
+const getAllUsers = async () => {
+  const data = await Users.findAll();
+  return data;
+};
 
 const deleteUser = async (userId) => {
   const data = Users.destroy({
     where: {
-      id: userId
-    }
-  })
+      id: userId,
+    },
+  });
 
   if (!data) return false;
 
   return data;
 };
 
-module.exports = {newUser, getAllUsers, deleteUser};
+module.exports = { newUser, getAllUsers, deleteUser };

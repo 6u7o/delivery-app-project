@@ -29,4 +29,4 @@ const deleteUser = async (req, res) => {
   return res.status(201).json(response);
 };
 
-module.exports = {newUser, getAllUsers, deleteUser };
+module.exports = { newUser, getAllUsers, deleteUser };
