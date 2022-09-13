@@ -1,5 +1,16 @@
 import styled from 'styled-components';
 
+const Container = styled.div`
+  > table, form, h3 {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  h3 {
+    margin-top: 2rem;
+  }
+`;
+
 const Table = styled.table`
   background-color: #e0e0e0;
   width: 95%;
@@ -97,4 +108,4 @@ const FormComponentsContainer = styled.label`
   };
 `;
 
-export { Table, Form, FormComponentsContainer };
+export { Container, Table, Form, FormComponentsContainer };

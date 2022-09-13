@@ -6,14 +6,16 @@ import api from '../../services/request';
 // import api from '../services/request';
 import * as C from './styles';
 
+const userDataStructure = {
+  userName: '',
+  userEmail: '',
+  userPassword: '',
+  userRole: 'customer',
+};
+
 function Manage() {
   // const arrayData = await api.get('/admin/manage');
-  const [userData, setUserData] = useState({
-    userName: '',
-    userEmail: '',
-    userPassword: '',
-    userRole: '',
-  });
+  const [userData, setUserData] = useState(userDataStructure);
   const [registeredUsers, setRegisteredUsers] = useState([]);
 
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ function Manage() {
       }
     };
     getUsersData();
+    setUserData(userDataStructure);
   }, [navigate]);
 
   const handleChange = ({ target }) => {
@@ -50,11 +53,26 @@ function Manage() {
       role: userData.userRole,
     };
     await api.post('/admin/new-user', body, config);
+    setUserData(userDataStructure);
+    setRegisteredUsers([...registeredUsers, body]);
     // const newUserData = await api.post('admin/new-user', body, config);
   };
 
+  const handleDeleteItemButtonClick = async (id) => {
+    // event.preventDefault();
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        authorization: token,
+      },
+    };
+    await api.delete(`/admin/${id}`, {}, config);
+
+    setRegisteredUsers(registeredUsers.filter(({ id: userId }) => id !== userId));
+  };
+
   return (
-    <div>
+    <C.Container>
       <Header
         array={ [{
           label: 'GERENCIAR USUÁRIOS',
@@ -63,13 +81,11 @@ function Manage() {
           name: 'manage-button',
           dataTestId: 'customer_products__element-navbar-link-orders',
         }] }
-        /* userName={  api informar o caminho para pegar o userName  } */
       />
-      <h1> ADMIN / MANAGE </h1>
+      <h3> Cadastrar novo usuário </h3>
       <C.Form>
         <C.FormComponentsContainer htmlFor="userName">
           <span>Nome</span>
-          {/* !!!! PARA EVITAR PLACEHOLDERS PODE SER INTERESSANTE COLOCAR UM SEGUNDO SPAN COM OUTRA ESTILIZAÇÃO PARA DAR O EXEMPLO DO MODELO QUE SE ESPERA DO ENDEREÇO */}
           <input
             name="userName"
             type="text"
@@ -104,12 +120,12 @@ function Manage() {
             name="userRole"
             type="text"
             onChange={ handleChange }
-            value={ userData.userEmail }
+            value={ userData.userRole }
             data-testid="admin_manage__input-email"
           >
-            <option value="Customer"> Cliente </option>
-            <option value="Seller"> Vendedor </option>
-            <option value="Admin"> Administrador </option>
+            <option value="customer"> Cliente </option>
+            <option value="seller"> Vendedor </option>
+            <option value="administrator"> Administrador </option>
           </select>
         </C.FormComponentsContainer>
         <div>
@@ -124,6 +140,7 @@ function Manage() {
         </div>
       </C.Form>
 
+      <h3> Lista de usuários </h3>
       <C.Table>
         <thead>
           <tr>
@@ -172,7 +189,8 @@ function Manage() {
                     data-testid={ `admin_manage__element-user-table-remove-${index}` }
                     type="button"
                     aria-label="remove-item-button"
-                    // onClick={ () => handleDeleteItemButtonClick(id) }
+                    value={ user.id }
+                    onClick={ () => handleDeleteItemButtonClick(user.id) }
                   >
                     REMOVER
                   </button>
@@ -182,7 +200,7 @@ function Manage() {
           }
         </tbody>
       </C.Table>
-    </div>
+    </C.Container>
   );
 }
 
