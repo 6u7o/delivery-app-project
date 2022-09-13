@@ -1,7 +1,7 @@
 const { Users } = require('../../database/models');
 const { generateToken } = require('../../auth/jwt');
 
-const createOne = async (userData) => {
+const newUser = async (userData) => {
   const userDbData = (await Users.create(
     {
       name: userData.name,
@@ -23,4 +23,4 @@ const createOne = async (userData) => {
   return { id, email, name, role, token };
 };
 
-module.exports = createOne;
+module.exports = newUser;
