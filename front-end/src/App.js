@@ -6,7 +6,7 @@ import GlobalStyles from './Assets/Styles/global';
 import './App.css';
 
 import Login from './Pages/Login/Login';
-import Register from './Pages/Register';
+import Register from './Pages/Register/Register';
 import Checkout from './Pages/Checkout';
 import Manage from './Pages/Manage';
 import CustomerOrdersDetails from './Pages/CustomerOrderDetails/Orders.customer.details';
