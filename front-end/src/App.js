@@ -10,9 +10,9 @@ import Register from './Pages/Register';
 import Checkout from './Pages/Checkout';
 import Manage from './Pages/Manage';
 import CustomerOrdersDetails from './Pages/CustomerOrderDetails/Orders.customer.details';
-import CustomerOrders from './Pages/Orders.customer';
+import CustomerOrders from './Pages/CustomerOrders/Orders.customer';
 import SellerOrdersDetails from './Pages/SellerOrderDetails/Orders.sellers.details';
-import SellerOrders from './Pages/Orders.sellers';
+import SellerOrders from './Pages/SellerOrders/Orders.sellers';
 import Products from './Pages/Products/Products';
 
 function App() {

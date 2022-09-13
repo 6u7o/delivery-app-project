@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import CardOrder from '../Components/OrderCard/OrderCard';
-
-import Header from '../Components/Header/Header';
-
-import api from '../services/request';
+import CardOrder from '../../Components/OrderCard/OrderCard';
+import Header from '../../Components/Header/Header';
+import api from '../../services/request';
+import { Content } from './styles';
 
 function CustomerOrders() {
   const [ordersList, setOrdersList] = useState([]);
@@ -44,21 +43,22 @@ function CustomerOrders() {
         }] }
         userName={ userName }
       />
-      <h1> CUSTOMER ORDERS </h1>
-      { ordersList?.map((order) => (
-        <CardOrder
-          key={ order.id }
-          id={ order.id }
-          date={ order.saleDate.slice(0, +'-14').split('-') }
-          status={ order.status }
-          totalPrice={ order.totalPrice }
-          path="customer"
-          dtTestIdOrder={ `customer_orders__element-order-id-${order.id}` }
-          dtTestIdOrderStats={ `customer_orders__element-delivery-status-${order.id}` }
-          dtTestIdOrderDate={ `customer_orders__element-order-date-${order.id}` }
-          dtTestIdOrderTPrice={ `customer_orders__element-card-price-${order.id}` }
-        />
-      ))}
+      <Content>
+        { ordersList?.map((order) => (
+          <CardOrder
+            key={ order.id }
+            id={ order.id }
+            date={ order.saleDate.slice(0, +'-14').split('-') }
+            status={ order.status }
+            totalPrice={ order.totalPrice }
+            path="customer"
+            dtTestIdOrder={ `customer_orders__element-order-id-${order.id}` }
+            dtTestIdOrderStats={ `customer_orders__element-delivery-status-${order.id}` }
+            dtTestIdOrderDate={ `customer_orders__element-order-date-${order.id}` }
+            dtTestIdOrderTPrice={ `customer_orders__element-card-price-${order.id}` }
+          />
+        ))}
+      </Content>
     </div>
   );
 }

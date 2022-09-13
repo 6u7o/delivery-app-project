@@ -159,14 +159,14 @@ function SellerOrdersDetails() {
                     `seller_order_details__element-order-table-unit-price-${index}`
                   }
                 >
-                  {`R$: ${String(item.unitPrice).replace('.', ',')}`}
+                  {String(item.unitPrice).replace('.', ',')}
                 </td>
                 <td
                   data-testid={
                     `seller_order_details__element-order-table-sub-total-${index}`
                   }
                 >
-                  {`R$: ${String(item.totalPrice).replace('.', ',')}`}
+                  {String(item.totalPrice).replace('.', ',')}
                 </td>
               </tr>
             ))
