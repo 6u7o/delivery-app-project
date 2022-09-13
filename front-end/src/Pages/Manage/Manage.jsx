@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header/Header';
+import api from '../../services/request';
 // import DetailsTable from '../../Components/TableDetails/TableDetails';
 // import api from '../services/request';
 import * as C from './styles';
@@ -20,9 +21,8 @@ function Manage() {
   useEffect(() => {
     const getUsersData = async () => {
       try {
-        const { data } = await api.get('/admin/users');
-        console.log('aaaaa', data);
-        setRegisteredUsers(data.data);
+        const { data } = await api.get('admin/users');
+        setRegisteredUsers(data);
       } catch (err) {
         localStorage.clear();
         navigate('/');
@@ -165,7 +165,7 @@ function Manage() {
                     `admin_manage__element-user-table-role-${index}`
                   }
                 >
-                  {user.userRole}
+                  {user.role}
                 </td>
                 <td>
                   <button
