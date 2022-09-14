@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import { Table } from './styles';
 
 function DetailsTable({
   id,
@@ -25,7 +26,7 @@ function DetailsTable({
   dtTestIdRemoveProductBtn,
 }) {
   return (
-    <>
+    <tr>
       <td
         data-testid={ dtTestIdItemIndex }
       >
@@ -90,7 +91,7 @@ function DetailsTable({
           </button>
         </td>
       )}
-    </>
+    </tr>
   );
 }
 
