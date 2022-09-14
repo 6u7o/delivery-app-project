@@ -57,8 +57,10 @@ function Manage() {
       toast.success('usuário cadastrado com sucesso');
       setUserData(userDataStructure);
       setRegisteredUsers([...registeredUsers, body]);
-    } catch {
-      toast.failuer('dados inválidos');
+    } catch (err) {
+      // console.log('response', err.response);
+      // console.log('request', err.request);
+      toast.error('dados inválidos');
     }
   };
 
