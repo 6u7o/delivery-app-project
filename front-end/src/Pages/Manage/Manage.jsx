@@ -13,6 +13,10 @@ const userDataStructure = {
 const formFieldsMin = { name: 12, password: 6 };
 const filtersStateStructure = { filtRole: '', filterText: '', applyFilter: false };
 
+const fieldsTranslation = { seller: 'Vendedor',
+  administrator: 'Administrador',
+  customer: 'Cliente' };
+
 function Manage() {
   // const arrayData = await api.get('/admin/manage');
   const [userData, setUserData] = useState(userDataStructure);
@@ -219,7 +223,7 @@ function Manage() {
                 <td
                   data-testid={ `admin_manage__element-user-table-role-${index}` }
                 >
-                  {user.role}
+                  {fieldsTranslation[user.role]}
                 </td>
                 <td>
                   <button

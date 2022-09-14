@@ -54,8 +54,11 @@ const Table = styled.table`
     height: 35px;
     border: none;
     border-radius: 5px;
-    font-size: 12px;
-    font-weight: 900;
+    box-shadow: 10px 15px 12px -11px rgba(150, 150, 150, 0.4);
+
+    &.register-button {
+      margin-top: 40px;
+    }
 
     :hover {
       background-color: #028d47;
@@ -67,6 +70,7 @@ const Table = styled.table`
       color: #00000040;
       cursor: not-allowed;
     }
+  }
 `;
 
 const Form = styled.form`
@@ -89,14 +93,15 @@ margin-bottom: 2rem;
   }
   button {
     background-color: ${({ theme }) => theme.colors.primary.buttons};
-    width: 200px;
+    width: 175px;
     height: 35px;
     border: none;
     border-radius: 5px;
-    margin-right: 4px;
     box-shadow: 10px 15px 12px -11px rgba(150, 150, 150, 0.4);
-    font-size: 15px;
-    font-weight: 900;
+
+    &.register-button {
+      margin-top: 40px;
+    }
 
     :hover {
       background-color: #028d47;
@@ -124,6 +129,26 @@ const FormComponentsContainer = styled.label`
     padding: 0 1rem;
     border: 2px solid black;
     border-radius: 0.5rem;
+    background-color: transparent;
+    border: 1px solid #d6d6d6;
+    border-radius: 7px;
+    padding-left: 5px;
+    outline: none;
+    margin-top: 5px;
+
+    ::placeholder {
+      color: #d6d6d6;
+    }
+
+    :hover {
+      border: 1px solid ${({ theme }) => theme.colors.primary.buttons};
+      color: ${({ theme }) => theme.colors.primary.headerAndFooter};
+    }
+
+    :focus {
+      border: 2px solid ${({ theme }) => theme.colors.primary.buttons};
+      color: ${({ theme }) => theme.colors.primary.headerAndFooter};
+    }
   };
 `;
 
