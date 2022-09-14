@@ -97,6 +97,8 @@ const Form = styled.form`
     border: none;
     border-radius: 5px;
     box-shadow: 10px 15px 12px -11px rgba(150, 150, 150, 0.4);
+    font-size: 12px;
+    font-weight: 900;
 
     &.login-button {
       margin-top: 50px;
