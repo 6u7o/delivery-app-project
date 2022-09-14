@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import Header from '../../Components/Header/Header';
 import api from '../../services/request';
 // import DetailsTable from '../../Components/TableDetails/TableDetails';
@@ -11,6 +12,11 @@ const userDataStructure = {
   userEmail: '',
   userPassword: '',
   userRole: 'customer',
+};
+
+const formFieldsMin = {
+  name: 12,
+  password: 6,
 };
 
 function Manage() {
@@ -52,9 +58,14 @@ function Manage() {
       password: userData.userPassword,
       role: userData.userRole,
     };
-    await api.post('/admin/new-user', body, config);
-    setUserData(userDataStructure);
-    setRegisteredUsers([...registeredUsers, body]);
+    try {
+      await api.post('/admin/new-user', body, config);
+      toast.success('usuário cadastrado com sucesso');
+      setUserData(userDataStructure);
+      setRegisteredUsers([...registeredUsers, body]);
+    } catch {
+      toast.failuer('dados inválidos');
+    }
     // const newUserData = await api.post('admin/new-user', body, config);
   };
 
@@ -67,9 +78,16 @@ function Manage() {
       },
     };
     await api.delete(`/admin/${id}`, {}, config);
-
+    toast.success('usuário removido com sucesso');
     setRegisteredUsers(registeredUsers.filter(({ id: userId }) => id !== userId));
   };
+
+  const validateFormData = ({ userName, userEmail, userPassword, userRole }) => !(
+    userName?.length > formFieldsMin.name
+      && userPassword?.length > formFieldsMin.password
+      && userEmail.match(/^\S+@\S+\.\S+$/)
+      && userRole
+  );
 
   return (
     <C.Container>
@@ -98,7 +116,7 @@ function Manage() {
           <span>Email</span>
           <input
             name="userEmail"
-            type="text"
+            type="email"
             onChange={ handleChange }
             value={ userData.userEmail }
             data-testid="admin_manage__input-email"
@@ -133,7 +151,7 @@ function Manage() {
             type="submit"
             data-testid="customer_checkout__button-submit-order"
             onClick={ handleSubmit }
-            disabled={ Object.values(userData).some((data) => data.length < 1) }
+            disabled={ validateFormData(userData) }
           >
             Cadastrar
           </button>
@@ -200,6 +218,7 @@ function Manage() {
           }
         </tbody>
       </C.Table>
+      <Toaster />
     </C.Container>
   );
 }
