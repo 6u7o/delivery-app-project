@@ -3,27 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import Header from '../../Components/Header/Header';
 import api from '../../services/request';
-// import DetailsTable from '../../Components/TableDetails/TableDetails';
-// import api from '../services/request';
 import * as C from './styles';
 
 const userDataStructure = {
   userName: '',
   userEmail: '',
   userPassword: '',
-  userRole: 'customer',
-};
-
-const formFieldsMin = {
-  name: 12,
-  password: 6,
-};
+  userRole: 'customer' };
+const formFieldsMin = { name: 12, password: 6 };
+const filtersStateStructure = { filtRole: '', filterText: '', applyFilter: false };
 
 function Manage() {
   // const arrayData = await api.get('/admin/manage');
   const [userData, setUserData] = useState(userDataStructure);
   const [registeredUsers, setRegisteredUsers] = useState([]);
-
+  const [filters, setFilters] = useState(filtersStateStructure);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,16 +60,17 @@ function Manage() {
     } catch {
       toast.failuer('dados inválidos');
     }
-    // const newUserData = await api.post('admin/new-user', body, config);
+  };
+
+  const handleFilter = ({ target }) => {
+    setFilters({ ...filters, [target.name]: target.value });
   };
 
   const handleDeleteItemButtonClick = async (id) => {
     // event.preventDefault();
     const token = localStorage.getItem('token');
     const config = {
-      headers: {
-        authorization: token,
-      },
+      headers: { authorization: token },
     };
     await api.delete(`/admin/${id}`, {}, config);
     toast.success('usuário removido com sucesso');
@@ -83,10 +78,8 @@ function Manage() {
   };
 
   const validateFormData = ({ userName, userEmail, userPassword, userRole }) => !(
-    userName?.length > formFieldsMin.name
-      && userPassword?.length > formFieldsMin.password
-      && userEmail.match(/^\S+@\S+\.\S+$/)
-      && userRole
+    userName?.length > formFieldsMin.name && userPassword?.length > formFieldsMin.password
+      && userEmail.match(/^\S+@\S+\.\S+$/) && userRole
   );
 
   return (
@@ -159,6 +152,29 @@ function Manage() {
       </C.Form>
 
       <h3> Lista de usuários </h3>
+      <div className="filters-container">
+        <h4>
+          Buscar:
+        </h4>
+        <C.FormComponentsContainer htmlFor="filtRole">
+          <h5> Tipo </h5>
+          <select name="filtRole" value={ filters.filtRole } onChange={ handleFilter }>
+            <option value="">selecionar</option>
+            <option value="administrator">Admin</option>
+            <option value="seller">Vendedor</option>
+            <option value="customer">Cliente</option>
+          </select>
+        </C.FormComponentsContainer>
+        <C.FormComponentsContainer htmlFor="filterText">
+          <h5>Adicione um nome ou email</h5>
+          <input
+            type="text"
+            value={ filters.filterText }
+            onChange={ handleFilter }
+            name="filterText"
+          />
+        </C.FormComponentsContainer>
+      </div>
       <C.Table>
         <thead>
           <tr>
@@ -171,34 +187,35 @@ function Manage() {
         </thead>
         <tbody>
           {
-            registeredUsers?.map((user, index) => (
+            registeredUsers?.filter(({ name, email, role }) => {
+              let validText = true;
+              let validRole = true;
+              if (filters.filterText?.length > 0) {
+                validText = email.toLowerCase().includes(filters.filterText.toLowerCase())
+                || (name.toLowerCase().includes(filters.filterText.toLowerCase()));
+              }
+              if (filters.filtRole.length > 0) validRole = role === filters.filtRole;
+              return (validText && validRole);
+            }).map((user, index) => (
               <tr key={ index }>
                 <td
                   id={ user.id }
-                  data-testid={
-                    `admin_manage__element-user-table-item-number-${index}`
-                  }
+                  data-testid={ `admin_manage__element-user-table-item-number-${index}` }
                 >
                   {index + 1}
                 </td>
                 <td
-                  data-testid={
-                    `admin_manage__element-user-table-name-${index}`
-                  }
+                  data-testid={ `admin_manage__element-user-table-name-${index}` }
                 >
                   {user.name}
                 </td>
                 <td
-                  data-testid={
-                    `admin_manage__element-user-table-email-${index}`
-                  }
+                  data-testid={ `admin_manage__element-user-table-email-${index}` }
                 >
                   {user.email}
                 </td>
                 <td
-                  data-testid={
-                    `admin_manage__element-user-table-role-${index}`
-                  }
+                  data-testid={ `admin_manage__element-user-table-role-${index}` }
                 >
                   {user.role}
                 </td>

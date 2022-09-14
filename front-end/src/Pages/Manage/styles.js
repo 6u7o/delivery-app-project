@@ -1,13 +1,31 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  > table, form, h3 {
+  > table, form, h3, .filters-container {
     width: 95%;
     margin: 0 auto;
-  }
+  };
 
   h3 {
     margin-top: 2rem;
+  };
+
+  .filters-container {
+    margin: 0.5rem auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    * {
+      padding: 0.3rem;
+    };
+
+    h4 {
+      width: 100%;
+    };
+
+    label:has(input) h5 {
+      width: 20rem
+    };
   }
 `;
 
@@ -97,13 +115,14 @@ const FormComponentsContainer = styled.label`
   flex-direction: column;
   width: 20%;
   margin-bottom: 0.5rem;
-  span {
+  span, h5 {
     font-size: 0.9rem;
     font-weight: 500;
   };
   input, select {
     height: 2rem;
     padding: 0 1rem;
+    border: 2px solid black;
     border-radius: 0.5rem;
   };
 `;
