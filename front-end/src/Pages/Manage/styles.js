@@ -84,7 +84,7 @@ margin-bottom: 2rem;
     width: 80vw; // ajustar
   }
   div:has(button) {
-    width: 80vw; // ajustar
+    width: 100%; // ajustar
     text-align: center;
   }
   button {
