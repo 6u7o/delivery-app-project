@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../Components/Header/Header';
-import DetailsTable from '../Components/TableDetails/TableDetails';
-import api from '../services/request';
-import { getFromLocalStorage } from '../services/handleLocalStorage';
+import Header from '../../Components/Header/Header';
+import DetailsTable from '../../Components/TableDetails/TableDetails';
+import api from '../../services/request';
+import { getFromLocalStorage } from '../../services/handleLocalStorage';
+import * as C from './styles';
 
 function Checkout() {
   const [productsList, setProductsList] = useState([]);
@@ -74,7 +75,7 @@ function Checkout() {
   };
 
   return (
-    <div>
+    <C.Container>
       <Header
         array={ [{
           label: 'PRODUTOS',
@@ -92,8 +93,7 @@ function Checkout() {
         }] }
         userName={ localStorage.getItem('userName') }
       />
-      <h2> Finalizar Pedido </h2>
-      <table>
+      <C.Table>
         <thead>
           <tr>
             <th>Item</th>
@@ -107,41 +107,40 @@ function Checkout() {
         <tbody>
           {
             productsList?.map((item, index) => (
-              <tr key={ item.id }>
-                <DetailsTable
-                  id={ item.id }
-                  dtTestIdItemIndex={
-                    `customer_checkout__element-order-table-item-number-${index}`
-                  }
-                  product={ item.product }
-                  dtTestIdItemDesc={
-                    `customer_checkout__element-order-table-name-${index}`
-                  }
-                  quantity={ item.quantity }
-                  dtTestIdOrderQtt={
-                    `customer_checkout__element-order-table-quantity-${index}`
-                  }
-                  unitPrice={ item.unitPrice }
-                  dtTestIdUnitPrice={
-                    `customer_checkout__element-order-table-unit-price-${index}`
-                  }
-                  totalPrice={ item.totalPrice }
-                  dtTestIdTotalPrice={
-                    `customer_checkout__element-order-table-sub-total-${index}`
-                  }
-                  remove
-                  index={ index }
-                  dtTestIdRemoveProductBtn={
-                    `customer_checkout__element-order-table-remove-${index}`
-                  }
-                  handleDeleteItemButtonClick={ handleDeleteItemButtonClick }
-                />
-              </tr>
+              <DetailsTable
+                key={ item.id }
+                id={ item.id }
+                dtTestIdItemIndex={
+                  `customer_checkout__element-order-table-item-number-${index}`
+                }
+                product={ item.product }
+                dtTestIdItemDesc={
+                  `customer_checkout__element-order-table-name-${index}`
+                }
+                quantity={ item.quantity }
+                dtTestIdOrderQtt={
+                  `customer_checkout__element-order-table-quantity-${index}`
+                }
+                unitPrice={ item.unitPrice }
+                dtTestIdUnitPrice={
+                  `customer_checkout__element-order-table-unit-price-${index}`
+                }
+                totalPrice={ item.totalPrice }
+                dtTestIdTotalPrice={
+                  `customer_checkout__element-order-table-sub-total-${index}`
+                }
+                remove
+                index={ index }
+                dtTestIdRemoveProductBtn={
+                  `customer_checkout__element-order-table-remove-${index}`
+                }
+                handleDeleteItemButtonClick={ handleDeleteItemButtonClick }
+              />
             ))
           }
         </tbody>
-      </table>
-      <div data-testid="customer_checkout__element-order-total-price">
+      </C.Table>
+      <C.Content data-testid="customer_checkout__element-order-total-price">
         <h3>
           {
             `Total: R$ ${String((productsList
@@ -149,12 +148,12 @@ function Checkout() {
               .toFixed(2)).replace('.', ',')}`
           }
         </h3>
-      </div>
+      </C.Content>
       <br />
-      <form>
-        <h4>Detalhes e Endereço para Entrega</h4>
-        P. Vendedora Responsável
+      <h4>Detalhes e Endereço para Entrega</h4>
+      <C.Form>
         <label htmlFor="seller-person">
+          Vendedora Responsável:
           <select
             name="seller-person"
             data-testid="customer_checkout__select-seller"
@@ -167,15 +166,15 @@ function Checkout() {
             )) }
           </select>
         </label>
-        Endereço
         <input
+          placeholder="Informe o endereço para entrega"
           type="text"
           onChange={ handleChange }
           value={ address }
           data-testid="customer_checkout__input-address"
         />
-        Número
         <input
+          placeholder="Informe o número para entrega"
           type="number"
           onChange={ handleChange }
           value={ addressNumber }
@@ -188,43 +187,9 @@ function Checkout() {
         >
           FINALIZAR PEDIDO
         </button>
-      </form>
-    </div>
+      </C.Form>
+    </C.Container>
   );
 }
 
 export default Checkout;
-
-/*
-  {
-  "saleData": {
-  "sellerId": 2,
-  "totalPrice": 12.45,
-  "deliveryAddress": "rua do bobo",
-  "deliveryNumber": 1
-  },
-  "products": [
-    {
-      "productId": 1, "quantity": 55, "unityValue": 2.50, "name": "geladinha"
-    },
-    {
-      "productId": 2, "quantity": 55, "unityValue": 5.00, "name": "suco de batata"
-    }
-  ]
-}
-
-const onClickButton = async () => {
-    const token = localStorage.getItem('token');
-    const config = {
-      headers: {
-        authorization: token,
-      },
-    };
-    const body = {
-      newStatus: 'Preparando',
-    };
-    const { data } = await api.patch(`sales/${id}`, body, config);
-    console.log('data do newStatus: ', data);
-    setOrderStatus('Preparando');
-  };
-*/

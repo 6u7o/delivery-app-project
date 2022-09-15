@@ -7,8 +7,8 @@ import './App.css';
 
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
-import Checkout from './Pages/Checkout';
 import Manage from './Pages/Manage/Manage';
+import Checkout from './Pages/Checkout/Checkout';
 import CustomerOrdersDetails from './Pages/CustomerOrderDetails/Orders.customer.details';
 import CustomerOrders from './Pages/CustomerOrders/Orders.customer';
 import SellerOrdersDetails from './Pages/SellerOrderDetails/Orders.sellers.details';
